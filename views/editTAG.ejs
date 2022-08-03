@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit TAG</title>
+</head>
+<body>
+<h2>Edit</h2>
+  <form action="/api/update/<%= pi._id %>" method="POST">
+    <input type="text" value="<%= pi.name %>" name="name">
+    <select id="locality-dropdown" name="participant0" form="dupla">
+    </select>
+    <select id="locality-dropdown2" name="participant1" form="dupla">
+    </select>
+    Virar campeão: <!-- TODO: queria esse texto em cina do checkbox-->
+    <input type="checkbox" value="true" name="champion">
+    <br />
+    <button><a href="/api/listTags">List All</a></button>
+    <button type="submit">Edit</button>
+  </form>
+</body>
+</html>

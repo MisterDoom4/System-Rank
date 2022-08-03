@@ -1,0 +1,21 @@
+<!DOCTYPE <html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TESTE</title>
+  <link rel="stylesheet" type="text/css"
+    href="/assets/colocoAquiMeu.css">
+</head>
+<body>
+  
+  <h2>Criar Ponto Interesse<h2>
+  <form action="/api/add" method="POST">
+    <input type="text" placeholder="name" name="name">
+    <input type="text" placeholder="genre" name="genre">
+    <button type="submit">Submit</button>
+  </form>
+  <button><a href="/api/listAll">Listar todos</a></button>
+  <div id="erro"><%= erro %></div>
+  <script type="text/javascript" src="/scripts/erro.js"></script>
+</body>
+</html>
