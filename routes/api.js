@@ -33,4 +33,6 @@ router.get('/delete/:id',apiController.delete);
 router.get('/deleteTag/:id',apiController.deleteTag);
 // listar todos mas sem formatação
 router.get('/list',apiController.list);
+// listar tag especifica sem formatação pelo name
+router.get('/showTag/:name',apiController.showTagByName);
 module.exports = router;

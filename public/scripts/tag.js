@@ -16,7 +16,6 @@ function createComboBox(){
           for (let i = 0; i < data.length; i++) {
             option = document.createElement('option');
             option.text = data[i].name;
-            option.id = data[i]._id;
             dropdown.add(option);
           }
          } else {
