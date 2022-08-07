@@ -19,7 +19,8 @@ const PISchema = new Schema({
     default: false
   },
   points:{
-    type: Number
+    type: Number,
+    default: 0
   }
 });
 const tgSchema = new Schema({
@@ -32,11 +33,9 @@ const tgSchema = new Schema({
     default: false
   },
   points:{
-    type: Number
+    type: Number,
+    default: 0
   },
-  // participant :{
-  //   type :[String]
-  // }
   participant: [{name: {
     type: String,
     required: [true, '*Campo obrigatório!']

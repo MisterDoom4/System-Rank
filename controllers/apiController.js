@@ -64,7 +64,6 @@ exports.addTag = function (req, res, next) {
   let nm = req.body.name;
   let p1 = req.body.participant0;
   let p2 = req.body.participant1;
-
   let id;
   let id2;
   TAG.find({ name: nm }).then(function (pi) {
@@ -72,7 +71,7 @@ exports.addTag = function (req, res, next) {
       res.render('TAG', { erro: "Nome já cadastrado" });
     }
     else {
-      TAG.find({ 'participant[].name': req.params.p1 }).then(function (pi) {
+      TAG.find({ $or: [{ 'participant.name': p1 }, { 'participant.name': p2 }] }).then(function (pi) {
         if (pi.length > 0) {
           res.render('TAG', { erro: "Participante já tem Tag" });
         }
@@ -118,63 +117,241 @@ exports.updateTag = function (req, res, next) {
   let nm = req.body.name;
   let p1 = req.body.participant0;
   let p2 = req.body.participant1;
-  
-  let id;
-  let id2;
-  TAG.find({ $and: [{_id: req.params.id },{name: nm}]}).then(function(pi){
-    console.log(pi);
-    if(pi.length > 0){
-      console.log("existe");
-    }
-    else{
-      console.log("não existe"); // arrumar update, quando não mudar participante
-    }
-  })
-  // TAG.find({name: nm}).then(function(pi){
-  //   if(pi.length >0){
-  //     res.render('TAG',{erro :"Nome já cadastrado"});
-  //   }
-  //   else{
-  //     TAG.find({'participant[].name': req.params.p1}).then(function(pi){
-  //       if(pi.length >0){
-  //         res.render('TAG',{erro :"Participante já tem Tag"});
-  //       }
-  //       else{
-  //         PI.findOne({name: p1}).then(function(pi){
-  //           id = pi._id;
-  //         }).then(function(p0){
-  //           PI.findOne({name: p2}).then(function(pi2){
-  //             id2 = pi2._id; 
-  //           }).then(function(pi3){
-  //             let data = {
-  //               name: nm,
-  //               participant : [{
-  //                 _id : id,
-  //                 name: p1
-  //               },
-  //               {
-  //                 _id: id2,
-  //                 name: p2
-  //               }]
-  //             };
-  //             TAG.findByIdAndUpdate({ _id: req.params.id },
-  //               data).then(function () {
-  //                 TAG.findOne({ _id: req.params.id }).then(function (pi) {
-  //                   res.redirect('/api/listTags');
-  //                 });
-  //               })
-  //           })
-  //         })
-  //       }
-  //     })
-  //   }
-  // }).catch(next);
-  
+  if (p1 == p2) {
+    res.redirect('/api/editTag/' + req.params.id);
+  }
+  else {
+    let id;
+    let id2;
+    TAG.findOne({ _id: req.params.id }).then(function (pi) {
+      if (pi.name == nm) {
+        if (pi.participant[0].name == p1 || pi.participant[1].name == p1) { // verificar se p1 está na dupla
+          if (pi.participant[0].name == p2 || pi.participant[1].name == p2) { // verificar se p2 está na dupla
+            let data = {
+              name: nm,
+              champion: req.body.champion,
+              participant: [{
+                name: p1
+              },
+              {
+                name: p2
+              }]
+            };
+            TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
+              res.redirect('/api/listTags');
+            })
+          }
+          else { // se não está, verifica se p2 está em outra dupla
+            TAG.find({ 'participant.name': p2 }).then(function (pi) {
+              if (pi.length > 0) {
+                res.redirect('/api/editTag/' + req.params.id);
+              }
+              else {
+                PI.findOne({ name: p2 }).then(function (pi) {
+                  id2 = pi._id;
+                }).then(function () {
+                  let data = {
+                    name: nm,
+                    champion: req.body.champion,
+                    participant: [{
+                      name: p1
+                    },
+                    {
+                      _id: id2,
+                      name: p2
+                    }]
+                  };
+                  TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
+                    res.redirect('/api/listTags');
+                  })
+                })
+              }
+            })
+          }
+        }
+        else {
+          TAG.find({ 'participant.name': p1 }).then(function (pi3) {
+            if (pi3.length > 0) {
+              res.redirect('/api/editTag/' + req.params.id);
+            }
+            else {
+              if (pi.participant[0].name == p2 || pi.participant[1].name == p2) {
+                PI.findOne({ name: p1 }).then(function (pi) {
+                  id = pi._id;
+                }).then(function () {
+                  let data = {
+                    name: nm,
+                    champion: req.body.champion,
+                    participant: [{
+                      _id: id,
+                      name: p1
+                    },
+                    {
+                      name: p2
+                    }]
+                  };
+                  TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
+                    res.redirect('/api/listTags');
+                  })
+                })
+              }
+              else {
+                PI.findOne({ name: p1 }).then(function (pi) {
+                  id = pi._id;
+                }).then(function () {
+                  TAG.find({ 'participant.name': p2 }).then(function (pi) {
+                    if (pi.length > 0) {
+                      res.redirect('/api/editTag/' + req.params.id);
+                    }
+                    else {
+                      PI.findOne({ name: p2 }).then(function (pi) {
+                        id2 = pi._id;
+                      }).then(function () {
+                        let data = {
+                          name: nm,
+                          champion: req.body.champion,
+                          participant: [{
+                            _id: id,
+                            name: p1
+                          },
+                          {
+                            _id: id2,
+                            name: p2
+                          }]
+                        };
+                        TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
+                          res.redirect('/api/listTags');
+                        })
+                      })
+                    }
+                  })
+                })
+              }
+            }
+          })
+        }
+      }
+      else {
+        TAG.find({ name: nm }).then(function (pi2) {
+          if (pi2.length > 0) {
+            res.redirect('/api/editTag/' + req.params.id);
+          }
+          else {
+            if (pi.participant[0].name == p1 || pi.participant[1].name == p1) { // verificar se p1 está na dupla
+              if (pi.participant[0].name == p2 || pi.participant[1].name == p2) { // verificar se p2 está na dupla
+                let data = {
+                  name: nm,
+                  champion: req.body.champion,
+                  participant: [{
+                    name: p1
+                  },
+                  {
+                    name: p2
+                  }]
+                };
+                TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
+                  res.redirect('/api/listTags');
+                })
+              }
+              else { // se não está, verifica se p2 está em outra dupla
+                TAG.find({ 'participant.name': p2 }).then(function (pi) {
+                  if (pi.length > 0) {
+                    res.redirect('/api/editTag/' + req.params.id);
+                  }
+                  else {
+                    PI.findOne({ name: p2 }).then(function (pi) {
+                      id2 = pi._id;
+                    }).then(function () {
+                      let data = {
+                        name: nm,
+                        champion: req.body.champion,
+                        participant: [{
+                          name: p1
+                        },
+                        {
+                          _id: id2,
+                          name: p2
+                        }]
+                      };
+                      TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
+                        res.redirect('/api/listTags');
+                      })
+                    })
+                  }
+                })
+              }
+            }
+            else {
+              TAG.find({ 'participant.name': p1 }).then(function (pi3) {
+                if (pi3.length > 0) {
+                  res.redirect('/api/editTag/' + req.params.id);
+                }
+                else {
+                  if (pi.participant[0].name == p2 || pi.participant[1].name == p2) {
+                    PI.findOne({ name: p1 }).then(function (pi) {
+                      id = pi._id;
+                    }).then(function () {
+                      let data = {
+                        name: nm,
+                        champion: req.body.champion,
+                        participant: [{
+                          _id: id,
+                          name: p1
+                        },
+                        {
+                          name: p2
+                        }]
+                      };
+                      TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
+                        res.redirect('/api/listTags');
+                      })
+                    })
+                  }
+                  else {
+                    PI.findOne({ name: p1 }).then(function (pi) {
+                      id = pi._id;
+                    }).then(function () {
+                      TAG.find({ 'participant.name': p2 }).then(function (pi) {
+                        if (pi.length > 0) {
+                          res.redirect('/api/editTag/' + req.params.id);
+                        }
+                        else {
+                          PI.findOne({ name: p2 }).then(function (pi) {
+                            id2 = pi._id;
+                          }).then(function () {
+                            let data = {
+                              name: nm,
+                              champion: req.body.champion,
+                              participant: [{
+                                _id: id,
+                                name: p1
+                              },
+                              {
+                                _id: id2,
+                                name: p2
+                              }]
+                            };
+                            TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
+                              res.redirect('/api/listTags');
+                            })
+                          })
+                        }
+                      })
+                    })
+                  }
+                }
+              })
+            }
+          }
+        })
+      }
+    }).catch(next);
+  }
 };
 // apagar pessoa
 exports.delete = function (req, res, next) {
   PI.findOneAndDelete({ _id: req.params.id }).then(function (pi) {
-    TAG.findOneAndDelete({ 'participant[]._id': req.params.id }).then(function (p2) {
+    TAG.findOneAndDelete({ 'participant._id': req.params.id }).then(function (p2) {
       res.redirect('/api/listAll');
     })
   }).catch(next);
