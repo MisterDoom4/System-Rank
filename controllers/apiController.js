@@ -105,12 +105,35 @@ exports.addTag = function (req, res, next) {
 };
 // atualizar pessoa
 exports.update = function (req, res, next) {
-  PI.findByIdAndUpdate({ _id: req.params.id },
-    req.body).then(function () {
-      PI.findOne({ _id: req.params.id }).then(function (pi) {
-        res.redirect('/api/listAll');
-      });
-    }).catch(next);
+  let nm = req.body.name;
+  PI.findOne({ _id: req.params.id }).then(function (pi) {
+    if (pi.name == nm) {
+      PI.findByIdAndUpdate({ _id: req.params.id },
+        req.body).then(function () {
+          PI.findOne({ _id: req.params.id }).then(function (pi) {
+            res.redirect('/api/listAll');
+          });
+        })
+    }
+    else {
+      PI.find({ name: nm }).then(function (pi2) {
+        if (pi2.length > 0) {
+          res.redirect('/api/edit/' + req.params.id);
+        }
+        else {
+          TAG.updateOne({ 'participant.0.name':  pi.name}, { $set: { 'participant.0.name': nm } }).then(function (pi0) {
+            TAG.updateOne({ 'participant.1.name':  pi.name}, { $set: { 'participant.1.name': nm } }).then(function(pi0){
+            PI.findByIdAndUpdate({ _id: req.params.id },
+              req.body).then(function () {
+                PI.findOne({ _id: req.params.id }).then(function (pi) {
+                  res.redirect('/api/listAll');
+                });
+              })
+        })})
+        }
+      })
+    }
+  }).catch(next);
 };
 // atualizar tag
 exports.updateTag = function (req, res, next) {
@@ -138,7 +161,7 @@ exports.updateTag = function (req, res, next) {
               }]
             };
             TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
-              res.redirect('/api/listTags');
+              res.redirect('/api/showTag?name=' + nm);
             })
           }
           else { // se não está, verifica se p2 está em outra dupla
@@ -162,7 +185,7 @@ exports.updateTag = function (req, res, next) {
                     }]
                   };
                   TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
-                    res.redirect('/api/listTags');
+                    res.redirect('/api/showTag?name=' + nm);
                   })
                 })
               }
@@ -191,7 +214,7 @@ exports.updateTag = function (req, res, next) {
                     }]
                   };
                   TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
-                    res.redirect('/api/listTags');
+                    res.redirect('/api/showTag?name=' + nm);
                   })
                 })
               }
@@ -220,7 +243,7 @@ exports.updateTag = function (req, res, next) {
                           }]
                         };
                         TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
-                          res.redirect('/api/listTags');
+                          res.redirect('/api/showTag?name=' + nm);
                         })
                       })
                     }
@@ -250,7 +273,7 @@ exports.updateTag = function (req, res, next) {
                   }]
                 };
                 TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
-                  res.redirect('/api/listTags');
+                  res.redirect('/api/showTag?name=' + nm);
                 })
               }
               else { // se não está, verifica se p2 está em outra dupla
@@ -274,7 +297,7 @@ exports.updateTag = function (req, res, next) {
                         }]
                       };
                       TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
-                        res.redirect('/api/listTags');
+                        res.redirect('/api/showTag?name=' + nm);
                       })
                     })
                   }
@@ -303,7 +326,7 @@ exports.updateTag = function (req, res, next) {
                         }]
                       };
                       TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
-                        res.redirect('/api/listTags');
+                        res.redirect('/api/showTag?name=' + nm);
                       })
                     })
                   }
@@ -332,7 +355,7 @@ exports.updateTag = function (req, res, next) {
                               }]
                             };
                             TAG.findByIdAndUpdate({ _id: req.params.id }, data).then(function () {
-                              res.redirect('/api/listTags');
+                              res.redirect('/api/showTag?name=' + nm);
                             })
                           })
                         }
@@ -368,7 +391,7 @@ exports.list = function (req, res, next) {
     res.send(pi);
   }).catch(next);
 };
-
+//listar tag especifica sem formatação pelo name
 exports.showTagByName = function (req, res, next) {
   TAG.find({ name: req.params.name }).then(function (pi) {
     res.send(pi);
