@@ -2,11 +2,11 @@ const { PI, TAG } = require('../models/PImodel');
 // entrar na pagina de criação de pessoa
 exports.createPagWrestler = function (req, res, next) {
   res.render('WRESTLER', { erro: "" });
-}
+};
 // entrar na pagina de criação de tag
 exports.createPagTag = function (req, res, next) {
   res.render('TAG', { erro: "" });
-}
+};
 // listar todas as pessoas
 exports.listAll = function (req, res, next) {
   PI.find({}).sort({ name: 1 }).then(function (pi) {
@@ -17,6 +17,18 @@ exports.listAll = function (req, res, next) {
 exports.listTag = function (req, res, next) {
   TAG.find({}).then(function (pi) {
     res.render('listTAGS', { pis: pi });
+  }).catch(next);
+};
+// filtrar por genero
+exports.filterGenre = function (req, res, next) {
+  PI.find({ genre: req.params.genre }).sort({ name: 1 }).then(function (pi) {
+    res.render('listPIs', { pis: pi });
+  }).catch(next);
+};
+// ordenar por genero
+exports.sortGenre = function (req, res, next) {
+  PI.find({}).sort({ genre: 1 }).then(function (pi) {
+    res.render('listPIs', { pis: pi });
   }).catch(next);
 };
 // listar pessoa(s) especifica(s)
@@ -121,15 +133,16 @@ exports.update = function (req, res, next) {
           res.redirect('/api/edit/' + req.params.id);
         }
         else {
-          TAG.updateOne({ 'participant.0.name':  pi.name}, { $set: { 'participant.0.name': nm } }).then(function (pi0) {
-            TAG.updateOne({ 'participant.1.name':  pi.name}, { $set: { 'participant.1.name': nm } }).then(function(pi0){
-            PI.findByIdAndUpdate({ _id: req.params.id },
-              req.body).then(function () {
-                PI.findOne({ _id: req.params.id }).then(function (pi) {
-                  res.redirect('/api/listAll');
-                });
-              })
-        })})
+          TAG.updateOne({ 'participant.0.name': pi.name }, { $set: { 'participant.0.name': nm } }).then(function (pi0) {
+            TAG.updateOne({ 'participant.1.name': pi.name }, { $set: { 'participant.1.name': nm } }).then(function (pi0) {
+              PI.findByIdAndUpdate({ _id: req.params.id },
+                req.body).then(function () {
+                  PI.findOne({ _id: req.params.id }).then(function (pi) {
+                    res.redirect('/api/listAll');
+                  });
+                })
+            })
+          })
         }
       })
     }
@@ -396,7 +409,4 @@ exports.showTagByName = function (req, res, next) {
   TAG.find({ name: req.params.name }).then(function (pi) {
     res.send(pi);
   }).catch(next);
-}
-
-
-
+};

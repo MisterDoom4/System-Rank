@@ -8,4 +8,6 @@ router.get("/", indexController.index);
 router.get("/editWrestler", indexController.editWrestler);
 router.get("/editTag",indexController.editTag);
 router.get("/list",indexController.list);
+router.get("/match",indexController.match);
+router.get("/matchTag",indexController.matchTag);
 module.exports = router;

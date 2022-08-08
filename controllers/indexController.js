@@ -12,4 +12,10 @@ exports.editTag = function(req,res){
   };
   exports.list = function(req, res){
     res.render('listPIs');
+  };
+  exports.match = function(req,res){
+    res.render('match');
+  }
+  exports.matchTag = function(req,res){
+    res.redirect('matchTag');
   }

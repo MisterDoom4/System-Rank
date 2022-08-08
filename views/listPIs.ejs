@@ -5,7 +5,7 @@
   <title>Lista PIs</title>
 </head>
 <body>
-  <h2>Lista de Pontos de Interesse<h2>
+  <h2>Lista de Wrestlers<h2>
     <div>
       <button><a href="/api/createPagWrestler">Adicionar</a></button> <!-- TODO: queria o botão na esquerda da tabela -->
     </div>
@@ -13,7 +13,7 @@
     <thead>
       <tr>
         <td>Name</td>
-        <td>Genre</td>
+        <td><a href ="/api/sortGenre">Genre</a></td>
         <td>Points</td>
         <td>Champion</td>
       </tr>
@@ -21,8 +21,8 @@
     <tbody>
       <% pis.forEach(function(data) { %>
         <tr>
-          <td><%= data.name %></td>
-          <td><%= data.genre %></td>
+          <td><a href ="/api/show?name=<%= data.name %>"><%= data.name %></a></td>
+          <td><a href ="/api/filterGenre/<%= data.genre %>"><%= data.genre %></a></td>
           <td><%= data.points %></td>
           <td><%= data.champion %></td>
           <td><a href="/api/edit/<%= data._id %>">Edit</a> | 
@@ -31,6 +31,7 @@
         </tr>
      <% }) %>
    </tbody>
+   <%=pis.length %> <!-- TODO: colocar do lado da tabela -->
    <button><a href="/">Back</a></button>
    <script>
     function confirmation(msg, url) {
