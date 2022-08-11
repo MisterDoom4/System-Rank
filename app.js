@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 
+
 // configuração do db
 const db = require('./config/database').mongoURI;
 mongoose.connect(db,{useNewUrlParser: true})
@@ -16,6 +17,12 @@ const app = express();
 // define '/views/layout' como main-layout! (é renderizada na raiz)
 app.use(expressLayouts);
 app.set('view engine','ejs');
+
+app.use(function(req,res,next){
+   res.header('Access-Control-Allow-Origin', '*');
+   res.header('Access-Control-Allow-Headers', 'Origin,X-Request-With, Content-Type, Accept');
+   next();
+})
  
 
 //MIDDLEWARE
