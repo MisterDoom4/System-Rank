@@ -1,40 +1,54 @@
 const { PI, TAG } = require('../models/PImodel');
+
 // entrar na pagina de criação de pessoa
 exports.createPagWrestler = function (req, res, next) {
   res.render('WRESTLER', { erro: "" });
 };
+
 // entrar na pagina de criação de tag
 exports.createPagTag = function (req, res, next) {
   res.render('TAG', { erro: "" });
 };
+
 // listar todas as pessoas
 exports.listAll = function (req, res, next) {
   PI.find({}).sort({ name: 1 }).then(function (pi) {
     res.render('listPIs', { pis: pi });
   }).catch(next);
 };
+
 // listar todas as tags
 exports.listTag = function (req, res, next) {
   TAG.find({}).then(function (pi) {
     res.render('listTAGS', { pis: pi });
   }).catch(next);
 };
+
 // filtrar por genero
 exports.filterGenre = function (req, res, next) {
   PI.find({ genre: req.params.genre }).sort({ name: 1 }).then(function (pi) {
     res.render('listPIs', { pis: pi });
   }).catch(next);
 };
+
 // ordenar por genero
 exports.sortGenre = function (req, res, next) {
   PI.find({}).sort({ genre: 1 }).then(function (pi) {
     res.render('listPIs', { pis: pi });
   }).catch(next);
 };
+
 // listar pessoa(s) especifica(s)
 exports.show = function (req, res, next) {
   let nm = req.query.name;
   PI.find({ name: { $regex: nm } }).sort({ name: 1 }).then(function (pi) {
+    res.render('listPIs', { pis: pi });
+  }).catch(next);
+};
+
+//listar pela divisão e genero
+exports.showRank = function (req, res, next) {
+  PI.find({ main: req.query.main, genre: req.query.genre }).sort({ points: -1 }).then(function (pi) {
     res.render('listPIs', { pis: pi });
   }).catch(next);
 };
@@ -45,18 +59,21 @@ exports.showTag = function (req, res, next) {
     res.render('listTAGS', { pis: pi });
   }).catch(next);
 };
+
 // listar pessoa por id para editar
 exports.edit = function (req, res, next) {
   PI.findOne({ _id: req.params.id }).then(function (pi) {
     res.render('editPI', { pi: pi });
   }).catch(next);
 };
+
 // listar tag por id para editar
 exports.editTag = function (req, res, next) {
   TAG.findOne({ _id: req.params.id }).then(function (pi) {
     res.render('editTAG', { pi: pi });
   }).catch(next);
 };
+
 // adicionar pessoa
 exports.add = function (req, res, next) {
   let nm = req.body.name;
@@ -71,6 +88,7 @@ exports.add = function (req, res, next) {
     }
   }).catch(next);
 };
+
 // adicionar tag
 exports.addTag = function (req, res, next) {
   let nm = req.body.name;
@@ -115,6 +133,7 @@ exports.addTag = function (req, res, next) {
     }
   }).catch(next);
 };
+
 // atualizar pessoa
 exports.update = function (req, res, next) {
   let nm = req.body.name;
@@ -148,6 +167,7 @@ exports.update = function (req, res, next) {
     }
   }).catch(next);
 };
+
 // atualizar tag
 exports.updateTag = function (req, res, next) {
   let nm = req.body.name;
@@ -384,6 +404,7 @@ exports.updateTag = function (req, res, next) {
     }).catch(next);
   }
 };
+
 // apagar pessoa
 exports.delete = function (req, res, next) {
   PI.findOneAndDelete({ _id: req.params.id }).then(function (pi) {
@@ -392,21 +413,149 @@ exports.delete = function (req, res, next) {
     })
   }).catch(next);
 };
+
 // apagar tag
 exports.deleteTag = function (req, res, next) {
   TAG.findOneAndDelete({ _id: req.params.id }).then(function (pi) {
     res.redirect('/api/listTags');
   }).catch(next);
 };
+
 // listar todas as pessoas mas sem formatação
 exports.list = function (req, res, next) {
   PI.find({}).sort({ name: 1 }).then(function (pi) {
     res.send(pi);
   }).catch(next);
 };
+
 //listar tag especifica sem formatação pelo name
 exports.showTagByName = function (req, res, next) {
   TAG.find({ name: req.params.name }).then(function (pi) {
     res.send(pi);
+  }).catch(next);
+};
+
+// criar match
+exports.match = function (req, res, next) {
+  let win;
+  let los;
+  PI.findOne({ name: req.body.winner }).then(function (pi) {
+    win = pi;
+    PI.findOne({ name: req.body.loser }).then(function (pi) {
+      los = pi;
+      if (win.genre == los.genre) {
+        if (req.body.champion) {
+          if (win.champion) {
+            PI.findByIdAndUpdate(los._id, { points: 0 }).then(function (pi) {
+              res.redirect('/match');
+            })
+          }
+          if (los.champion) {
+            PI.findByIdAndUpdate(los._id, { champion: false }).then(function (pi) {
+              PI.findByIdAndUpdate(win._id, { champion: true, points: 0 }).then(function (pi) {
+                res.redirect('/match');
+              })
+            })
+          }
+          else {
+            res.redirect('/match');
+          }
+        }
+        else {
+          if (req.body.event) {
+            los.points -= 3;
+            win.points += 4;
+            PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+              PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                res.redirect('/match');
+              })
+            })
+          }
+          else {
+            if (win.main && los.main) {
+              if (win.points == los.points) {
+                los.points--;
+                win.points += 2;
+                PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                  PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                    res.redirect('/match');
+                  })
+                })
+              }
+              if (win.points > los.points) {
+                los.points--;
+                win.points++;
+                PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                  PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                    res.redirect('/match');
+                  })
+                })
+              }
+              else {
+                los.points -= 2;
+                win.points += 3;
+                PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                  PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                    res.redirect('/match');
+                  })
+                })
+              }
+            }
+            else {
+              if (win.main) {
+                los.points--;
+                win.points++;
+                PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                  PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                    res.redirect('/match');
+                  })
+                })
+              }
+              if (los.main) {
+                los.points -= 2;
+                win.points += 3;
+                PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                  PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                    res.redirect('/match');
+                  })
+                })
+              }
+              else {
+                if (win.points == los.points) {
+                  los.points--;
+                  win.points += 2;
+                  PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                    PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                      res.redirect('/match');
+                    })
+                  })
+                }
+                if (win.points > los.points) {
+                  los.points--;
+                  win.points++;
+                  PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                    PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                      res.redirect('/match');
+                    })
+                  })
+                }
+                else {
+                  los.points -= 2;
+                  win.points += 3;
+                  PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                    PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                      res.redirect('/match');
+                    })
+                  })
+                }
+              }
+            }
+          }
+        }
+      }
+      else {
+        res.redirect('/match');
+      }
+    })
   }).catch(next);
 };
