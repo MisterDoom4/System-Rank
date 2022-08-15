@@ -49,7 +49,7 @@ exports.show = function (req, res, next) {
 //listar pela divisão e genero
 exports.showRank = function (req, res, next) {
   PI.find({ main: req.query.main, genre: req.query.genre }).sort({ points: -1 }).then(function (pi) {
-    res.render('listPIs', { pis: pi });
+    res.render('rank', { pis: pi });
   }).catch(next);
 };
 // listar tags especificas
@@ -443,84 +443,43 @@ exports.match = function (req, res, next) {
     win = pi;
     PI.findOne({ name: req.body.loser }).then(function (pi) {
       los = pi;
-      if (win.genre == los.genre) {
-        if (req.body.champion) {
-          if (win.champion) {
-            PI.findByIdAndUpdate(los._id, { points: 0 }).then(function (pi) {
-              res.redirect('/match');
-            })
-          }
-          if (los.champion) {
-            PI.findByIdAndUpdate(los._id, { champion: false }).then(function (pi) {
-              PI.findByIdAndUpdate(win._id, { champion: true, points: 0 }).then(function (pi) {
+      if (los == null) {
+        win.points++;
+        PI.findByIdAndUpdate(win._id, { points: win.points }).then(function (pi) {
+          res.redirect('/match');
+        })
+      }
+      else {
+        if (win.genre == los.genre) {
+          if (req.body.champion) {
+            if (win.champion) {
+              PI.findByIdAndUpdate(los._id, { points: 0 }).then(function (pi) {
                 res.redirect('/match');
               })
-            })
-          }
-          else {
-            res.redirect('/match');
-          }
-        }
-        else {
-          if (req.body.event) {
-            los.points -= 3;
-            win.points += 4;
-            PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
-              PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                res.redirect('/match');
+            }
+            if (los.champion) {
+              PI.findByIdAndUpdate(los._id, { champion: false }).then(function (pi) {
+                PI.findByIdAndUpdate(win._id, { champion: true, points: 0 }).then(function (pi) {
+                  res.redirect('/match');
+                })
               })
-            })
-          }
-          else {
-            if (win.main && los.main) {
-              if (win.points == los.points) {
-                los.points--;
-                win.points += 2;
-                PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
-                  PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                    res.redirect('/match');
-                  })
-                })
-              }
-              if (win.points > los.points) {
-                los.points--;
-                win.points++;
-                PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
-                  PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                    res.redirect('/match');
-                  })
-                })
-              }
-              else {
-                los.points -= 2;
-                win.points += 3;
-                PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
-                  PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                    res.redirect('/match');
-                  })
-                })
-              }
             }
             else {
-              if (win.main) {
-                los.points--;
-                win.points++;
-                PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
-                  PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                    res.redirect('/match');
-                  })
+              res.redirect('/match');
+            }
+          }
+          else {
+            if (req.body.event) {
+              los.points -= 3;
+              win.points += 4;
+              PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                  res.redirect('/match');
                 })
-              }
-              if (los.main) {
-                los.points -= 2;
-                win.points += 3;
-                PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
-                  PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                    res.redirect('/match');
-                  })
-                })
-              }
-              else {
+              })
+            }
+            else {
+              if (win.main && los.main) {
                 if (win.points == los.points) {
                   los.points--;
                   win.points += 2;
@@ -549,12 +508,61 @@ exports.match = function (req, res, next) {
                   })
                 }
               }
+              else {
+                if (win.main) {
+                  los.points--;
+                  win.points++;
+                  PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                    PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                      res.redirect('/match');
+                    })
+                  })
+                }
+                if (los.main) {
+                  los.points -= 2;
+                  win.points += 3;
+                  PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                    PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                      res.redirect('/match');
+                    })
+                  })
+                }
+                else {
+                  if (win.points == los.points) {
+                    los.points--;
+                    win.points += 2;
+                    PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                      PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                        res.redirect('/match');
+                      })
+                    })
+                  }
+                  if (win.points > los.points) {
+                    los.points--;
+                    win.points++;
+                    PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                      PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                        res.redirect('/match');
+                      })
+                    })
+                  }
+                  else {
+                    los.points -= 2;
+                    win.points += 3;
+                    PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                      PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                        res.redirect('/match');
+                      })
+                    })
+                  }
+                }
+              }
             }
           }
         }
-      }
-      else {
-        res.redirect('/match');
+        else {
+          res.redirect('/match');
+        }
       }
     })
   }).catch(next);
