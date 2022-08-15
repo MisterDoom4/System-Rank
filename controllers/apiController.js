@@ -18,7 +18,7 @@ exports.listAll = function (req, res, next) {
 };
 
 // listar todas as tags
-exports.listTag = function (req, res, next) {
+exports.listAllTag = function (req, res, next) {
   TAG.find({}).then(function (pi) {
     res.render('listTAGS', { pis: pi });
   }).catch(next);
@@ -46,12 +46,6 @@ exports.show = function (req, res, next) {
   }).catch(next);
 };
 
-//listar pela divisão e genero
-exports.showRank = function (req, res, next) {
-  PI.find({ main: req.query.main, genre: req.query.genre }).sort({ points: -1 }).then(function (pi) {
-    res.render('rank', { pis: pi });
-  }).catch(next);
-};
 // listar tags especificas
 exports.showTag = function (req, res, next) {
   let nm = req.query.name;
@@ -60,6 +54,18 @@ exports.showTag = function (req, res, next) {
   }).catch(next);
 };
 
+//listar pela divisão e genero
+exports.showRank = function (req, res, next) {
+  PI.find({ main: req.query.main, genre: req.query.genre }).sort({ points: -1 }).then(function (pi) {
+    res.render('rank', { pis: pi });
+  }).catch(next);
+};
+//listar tag pelo genero
+exports.showRankTag = function (req, res, next) {
+  TAG.find({ genre: req.query.genre }).sort({ points: -1 }).then(function (pi) {
+    res.render('rankTag', { pis: pi });
+  }).catch(next);
+};
 // listar pessoa por id para editar
 exports.edit = function (req, res, next) {
   PI.findOne({ _id: req.params.id }).then(function (pi) {
@@ -124,7 +130,7 @@ exports.addTag = function (req, res, next) {
                 }]
               };
               TAG.create(data).then(function (p4) {
-                res.redirect('/api/listTags');
+                res.redirect('/api/listAllTags');
               })
             })
           }).catch(next);
@@ -417,7 +423,7 @@ exports.delete = function (req, res, next) {
 // apagar tag
 exports.deleteTag = function (req, res, next) {
   TAG.findOneAndDelete({ _id: req.params.id }).then(function (pi) {
-    res.redirect('/api/listTags');
+    res.redirect('/api/listAllTags');
   }).catch(next);
 };
 

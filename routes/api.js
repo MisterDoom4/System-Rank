@@ -14,7 +14,7 @@ router.get('/createPagTag',apiController.createPagTag);
 router.get('/listAll',apiController.listAll);
 
 // listar todas as tags
-router.get('/listTags',apiController.listTag);
+router.get('/listAllTags',apiController.listAllTag);
 
 // listar por genero
 router.get('/filterGenre/:genre',apiController.filterGenre);
@@ -25,11 +25,14 @@ router.get('/sortGenre',apiController.sortGenre);
 // listar pessoa(s) especifica(s)
 router.get('/show',apiController.show);
 
+// listar tag especifica
+router.get('/showTag',apiController.showTag);
+
 // listar pela divisão e genero
 router.get('/showRank',apiController.showRank);
 
-// listar tag especifica
-router.get('/showTag',apiController.showTag);
+// listar tag pelo genero
+router.get('/showRankTag',apiController.showRankTag);
 
 // listar pessoa por id para editar
 router.get('/edit/:id',apiController.edit);
