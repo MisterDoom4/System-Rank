@@ -573,3 +573,8 @@ exports.match = function (req, res, next) {
     })
   }).catch(next);
 };
+exports.reset = function (req, res, next) {
+  PI.updateMany({},{points: 0}).then(function(pi){
+    res.send("reset bem sucedido");
+  }).catch(next);
+};

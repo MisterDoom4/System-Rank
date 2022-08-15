@@ -67,5 +67,8 @@ router.get('/showTag/:name',apiController.showTagByName);
 // criar match
 router.post('/match',apiController.match);
 
+//resetar pontos
+router.post('/reset',apiController.reset);
+
 
 module.exports = router;
