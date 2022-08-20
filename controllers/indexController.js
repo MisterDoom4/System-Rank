@@ -9,5 +9,5 @@ exports.index = function (req, res) {
     res.render('match');
   }
   exports.matchTag = function(req,res){
-    res.redirect('matchTag');
+    res.render('matchTag');
   }

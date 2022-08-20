@@ -61,11 +61,17 @@ router.get('/deleteTag/:id',apiController.deleteTag);
 // listar todos mas sem formatação
 router.get('/list',apiController.list);
 
+// listar todos as tags  mas sem formatação
+router.get('/listTag',apiController.listTag);
+
 // listar tag especifica sem formatação pelo name
 router.get('/showTag/:name',apiController.showTagByName);
 
 // criar match
 router.post('/match',apiController.match);
+
+// // criar match
+router.post('/matchTag',apiController.matchTag);
 
 //resetar pontos
 router.post('/reset',apiController.reset);

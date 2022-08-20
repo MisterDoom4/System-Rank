@@ -56,13 +56,13 @@ exports.showTag = function (req, res, next) {
 
 //listar pela divisão e genero
 exports.showRank = function (req, res, next) {
-  PI.find({ main: req.query.main, genre: req.query.genre }).sort({ points: -1 }).then(function (pi) {
+  PI.find({ main: req.query.main, genre: req.query.genre }).sort({ champion: -1, points: -1 }).then(function (pi) {
     res.render('rank', { pis: pi });
   }).catch(next);
 };
 //listar tag pelo genero
 exports.showRankTag = function (req, res, next) {
-  TAG.find({ genre: req.query.genre }).sort({ points: -1 }).then(function (pi) {
+  TAG.find({ genre: req.query.genre }).sort({ champion: -1, points: -1 }).then(function (pi) {
     res.render('rankTag', { pis: pi });
   }).catch(next);
 };
@@ -145,12 +145,54 @@ exports.update = function (req, res, next) {
   let nm = req.body.name;
   PI.findOne({ _id: req.params.id }).then(function (pi) {
     if (pi.name == nm) {
-      PI.findByIdAndUpdate({ _id: req.params.id },
-        req.body).then(function () {
-          PI.findOne({ _id: req.params.id }).then(function (pi) {
-            res.redirect('/api/listAll');
-          });
-        })
+      if (req.body.main) {
+        if (req.body.champion) {
+          PI.findByIdAndUpdate({ _id: req.params.id },
+            req.body).then(function () {
+              PI.findOne({ _id: req.params.id }).then(function (pi) {
+                res.redirect('/api/listAll');
+              });
+            })
+        }
+        else {
+          let data = {
+            champion: false,
+            main: true
+          };
+          PI.findByIdAndUpdate({ _id: req.params.id },
+            data).then(function () {
+              PI.findOne({ _id: req.params.id }).then(function (pi) {
+                res.redirect('/api/listAll');
+              });
+            })
+        }
+      }
+      else {
+        if (req.body.champion) {
+          let data = {
+            champion: true,
+            main: false
+          };
+          PI.findByIdAndUpdate({ _id: req.params.id },
+            data).then(function () {
+              PI.findOne({ _id: req.params.id }).then(function (pi) {
+                res.redirect('/api/listAll');
+              });
+            })
+        }
+        else {
+          let data = {
+            champion: false,
+            main: false
+          };
+          PI.findByIdAndUpdate({ _id: req.params.id },
+            data).then(function () {
+              PI.findOne({ _id: req.params.id }).then(function (pi) {
+                res.redirect('/api/listAll');
+              });
+            })
+        }
+      }
     }
     else {
       PI.find({ name: nm }).then(function (pi2) {
@@ -434,6 +476,12 @@ exports.list = function (req, res, next) {
   }).catch(next);
 };
 
+// listar todas as tags mas sem formatação
+exports.listTag = function (req, res, next) {
+  TAG.find({}).sort({ name: 1 }).then(function (pi) {
+    res.send(pi);
+  }).catch(next);
+};
 //listar tag especifica sem formatação pelo name
 exports.showTagByName = function (req, res, next) {
   TAG.find({ name: req.params.name }).then(function (pi) {
@@ -573,8 +621,88 @@ exports.match = function (req, res, next) {
     })
   }).catch(next);
 };
+exports.matchTag = function(req,res,next){
+  let win;
+  let los;
+  TAG.findOne({ name: req.body.winner }).then(function (pi) {
+    win = pi;
+    TAG.findOne({ name: req.body.loser }).then(function (pi) {
+      los = pi;
+      if (los == null) {
+        win.points++;
+        TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function (pi) {
+          res.redirect('/matchTag');
+        })
+      }
+      else {
+        // if (win.genre == los.genre) {
+          if (req.body.champion) {
+            if (win.champion) {
+              TAG.findByIdAndUpdate(los._id, { points: 0 }).then(function (pi) {
+                res.redirect('/matchTag');
+              })
+            }
+            if (los.champion) {
+              TAG.findByIdAndUpdate(los._id, { champion: false }).then(function (pi) {
+                TAG.findByIdAndUpdate(win._id, { champion: true, points: 0 }).then(function (pi) {
+                  res.redirect('/matchTag');
+                })
+              })
+            }
+            else {
+              res.redirect('/matchTag');
+            }
+          }
+          else {
+            if (req.body.event) {
+              los.points -= 3;
+              win.points += 4;
+              TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                  res.redirect('/matchTag');
+                })
+              })
+            }
+            else {
+                if (win.points == los.points) {
+                  los.points--;
+                  win.points += 2;
+                  TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                    TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                      res.redirect('/matchTag');
+                    })
+                  })
+                }
+                if (win.points > los.points) {
+                  los.points--;
+                  win.points++;
+                  TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                    TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                      res.redirect('/matchTag');
+                    })
+                  })
+                }
+                else {
+                  los.points -= 2;
+                  win.points += 3;
+                  TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                    TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
+                      res.redirect('/matchTag');
+                    })
+                  })
+                }
+            }
+          }
+        // }
+        // else {
+        //   res.redirect('/match');
+        // }
+      }
+    })
+  }).catch(next);
+}
 exports.reset = function (req, res, next) {
-  PI.updateMany({},{points: 0}).then(function(pi){
+  PI.updateMany({}, { points: 0 }).then(function (pi) {
     res.send("reset bem sucedido");
   }).catch(next);
 };
