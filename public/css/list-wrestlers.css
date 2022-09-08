@@ -124,3 +124,6 @@ input[type=text] {
     background-color: white;
     font-weight: bold;
 }
+#content{
+    margin-top: 10%;
+}
