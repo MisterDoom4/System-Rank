@@ -1,19 +1,25 @@
 <!DOCTYPE <html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Add</title>
-  <link rel="stylesheet" type="text/css"
-    href="/assets/colocoAquiMeu.css">
+  <link rel="stylesheet" type="text/css" href="/assets/colocoAquiMeu.css">
 </head>
+
 <body>
-  <h2>Add Wrestler<h2>
-  <form action="/api/add" method="POST">
-    <input type="text" placeholder="name" name="name">
-    <input type="text" placeholder="genre" name="genre">
-    <button type="submit">Submit</button>
-  </form>
-  <button><a href="/api/listAll">Show All</a></button>
-  <div id="erro"><%= erro %></div>
+  <div class="content">
+    <h2>Add Wrestler<h2>
+        <form action="/api/add" method="POST">
+          <input type="text" placeholder="name" name="name">
+          <input type="text" placeholder="genre" name="genre">
+          <button type="submit">Submit</button>
+        </form>
+        <button><a href="/api/listAll">Show All</a></button>
+        <div id="erro">
+          <%= erro %>
+        </div>
+  </div>
 </body>
+
 </html>

@@ -1,38 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Rank</title>
 </head>
+
 <body>
-  <h2>Rank<h2>
-    <div>
-      <button><a href="/api/showRank?main=true&genre=M">Principal Masculino</a></button> <!-- TODO: queria o botão na esquerda da tabela -->
-      <button><a href="/api/showRank?main=false&genre=M">Secundário Masculino</a></button>
-      <button><a href="/api/showRank?main=true&genre=F">Principal Feminino</a></button>
-      <button><a href="/api/showRank?main=false&genre=F">Secundário Feminino</a></button>
-    </div>
-    <table border="1">
-    <thead>
-      <tr>
-        <td>Name</td>
-        <td>Genre</td>
-        <td>Points</td>
-        <td>Champion</td>
-      </tr>
-    </thead>
-    <tbody>
-      <% pis.forEach(function(data) { %>
-        <tr>
-          <td><a href ="/api/show?name=<%= data.name %>"><%= data.name %></a></td>
-          <td><%= data.genre %></td>
-          <td><%= data.points %></td>
-          <td><%= data.champion %></td>
-        </tr>
-     <% }) %>
-   </tbody>
-   <%=pis.length %> <!-- TODO: colocar do lado da tabela -->
-   <button><a href="/">Back</a></button>
-   <button><a href="/match">Match</a></button>
+  <div class="content">
+    <h2>Rank<h2>
+        <div>
+          <button><a href="/api/showRank?main=true&genre=M">Principal Masculino</a></button>
+          <!-- TODO: queria o botão na esquerda da tabela -->
+          <button><a href="/api/showRank?main=false&genre=M">Secundário Masculino</a></button>
+          <button><a href="/api/showRank?main=true&genre=F">Principal Feminino</a></button>
+          <button><a href="/api/showRank?main=false&genre=F">Secundário Feminino</a></button>
+        </div>
+        <table border="1">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Genre</td>
+              <td>Points</td>
+              <td>Champion</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% pis.forEach(function(data) { %>
+              <tr>
+                <td><a href="/api/show?name=<%= data.name %>">
+                    <%= data.name %>
+                  </a></td>
+                <td>
+                  <%= data.genre %>
+                </td>
+                <td>
+                  <%= data.points %>
+                </td>
+                <td>
+                  <%= data.champion %>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+          <%=pis.length %>
+            <!-- TODO: colocar do lado da tabela -->
+            <button><a href="/">Back</a></button>
+            <button><a href="/match">Match</a></button>
+  </div>
 </body>
+
 </html>

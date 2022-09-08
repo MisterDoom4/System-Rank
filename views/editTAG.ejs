@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Edit TAG</title>
 </head>
+
 <body>
-<h2>Edit</h2>
-  <form action="/api/updateTag/<%= pi._id %>" method="POST" id = "dupla">
-    <input id = "nome" type="text" value="<%= pi.name %>" name="name">
-    <select id="locality-dropdown" name="participant0" form="dupla">
-    </select>
-    <select id="locality-dropdown2" name="participant1" form="dupla">
-    </select>
-    Virar campeão: <!-- TODO: queria esse texto em cima do checkbox-->
-    <input type="checkbox" value="true" name="champion">
-    <br />
-    <button><a href="/api/listTags">List All</a></button>
-    <button type="submit">Edit</button>
-  </form>
+  <div class="content">
+    <h2>Edit</h2>
+    <form action="/api/updateTag/<%= pi._id %>" method="POST" id="dupla">
+      <input id="nome" type="text" value="<%= pi.name %>" name="name">
+      <select id="locality-dropdown" name="participant0" form="dupla">
+      </select>
+      <select id="locality-dropdown2" name="participant1" form="dupla">
+      </select>
+      Virar campeão:
+      <!-- TODO: queria esse texto em cima do checkbox-->
+      <input type="checkbox" value="true" name="champion">
+      <br />
+      <button><a href="/api/listTags">List All</a></button>
+      <button type="submit">Edit</button>
+    </form>
+  </div>
   <script type="text/javascript" src="/scripts/editTag.js"></script>
 </body>
+
 </html>

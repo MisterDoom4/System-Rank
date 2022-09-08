@@ -7,21 +7,23 @@
 </head>
 
 <body>
-  <h2>Match</h2>
-  <form action="/api/matchTag" method="POST" id="match">
-    <button type="submit">Submit</button>
-  </form>
-  <select id="locality-dropdown" name="winner" form="match">
-</select>
-<select id="locality-dropdown2" name="loser" form="match">
-</select>
-Title Match:
-<input type="checkbox" value="true" name="champion" form="match">
-Evento Especial:
-<input type="checkbox" value="true" name="event" form="match">
-<button><a href="/">Back</a></button>
-<a href="/api/showRank?main=true&genre=M" class="btn btn-primary btn-block mb-2">Ranks</a>
-<script type="text/javascript" src="/scripts/matchTag.js"></script>
+  <div class="content">
+    <h2>Match</h2>
+    <form action="/api/matchTag" method="POST" id="match">
+      <button type="submit">Submit</button>
+    </form>
+    <select id="locality-dropdown" name="winner" form="match">
+    </select>
+    <select id="locality-dropdown2" name="loser" form="match">
+    </select>
+    Title Match:
+    <input type="checkbox" value="true" name="champion" form="match">
+    Evento Especial:
+    <input type="checkbox" value="true" name="event" form="match">
+    <button><a href="/">Back</a></button>
+    <a href="/api/showRank?main=true&genre=M" class="btn btn-primary btn-block mb-2">Ranks</a>
+  </div>
+  <script type="text/javascript" src="/scripts/matchTag.js"></script>
 </body>
 
 </html>

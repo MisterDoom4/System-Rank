@@ -7,20 +7,22 @@
 </head>
 
 <body>
-  <h2>Match</h2>
-  <form action="/api/match" method="POST" id="match">
-    <button type="submit">Submit</button>
-  </form>
-  <select id="locality-dropdown" name="winner" form="match">
-</select>
-<select id="locality-dropdown2" name="loser" form="match">
-</select>
-Title Match:
-<input type="checkbox" value="true" name="champion" form="match">
-Evento Especial:
-<input type="checkbox" value="true" name="event" form="match">
-<button><a href="/">Back</a></button>
-<script type="text/javascript" src="/scripts/match.js"></script>
+  <div class="content">
+    <h2>Match</h2>
+    <form action="/api/match" method="POST" id="match">
+      <button type="submit">Submit</button>
+    </form>
+    <select id="locality-dropdown" name="winner" form="match">
+    </select>
+    <select id="locality-dropdown2" name="loser" form="match">
+    </select>
+    Title Match:
+    <input type="checkbox" value="true" name="champion" form="match">
+    Evento Especial:
+    <input type="checkbox" value="true" name="event" form="match">
+    <button><a href="/">Back</a></button>
+  </div>
+  <script type="text/javascript" src="/scripts/match.js"></script>
 </body>
 
 </html>

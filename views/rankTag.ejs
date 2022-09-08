@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Rank</title>
 </head>
+
 <body>
-  <h2>Rank<h2>
-    <div>
-      <button><a href="/api/showRankTag?genre=F">Masculino</a></button> <!-- TODO: queria o botão na esquerda da tabela -->
-      <button><a href="/api/showRankTag?genre=M">Feminino</a></button>
-    </div>
-    <table border="1">
-    <thead>
-      <tr>
-        <td>Name</td>
-        <td>Points</td>
-        <td>Champion</td>
-      </tr>
-    </thead>
-    <tbody>
-      <% pis.forEach(function(data) { %>
-        <tr>
-          <td><a href ="/api/showTag?name=<%= data.name %>"><%= data.name %></a></td>
-          <td><%= data.points %></td>
-          <td><% if(data.champion){%>  🏆  <% } else{%><%}%></td>
-        </tr>
-     <% }) %>
-   </tbody>
-   <%=pis.length %> <!-- TODO: colocar do lado da tabela -->
-   <button><a href="/">Back</a></button>
-   <button><a href="/matchTag">Match</a></button>
+  <div class="content">
+    <h2>Rank<h2>
+        <div>
+          <button><a href="/api/showRankTag?genre=F">Masculino</a></button>
+          <!-- TODO: queria o botão na esquerda da tabela -->
+          <button><a href="/api/showRankTag?genre=M">Feminino</a></button>
+        </div>
+        <table border="1">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Points</td>
+              <td>Champion</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% pis.forEach(function(data) { %>
+              <tr>
+                <td><a href="/api/showTag?name=<%= data.name %>">
+                    <%= data.name %>
+                  </a></td>
+                <td>
+                  <%= data.points %>
+                </td>
+                <td>
+                  <% if(data.champion){%> 🏆 <% } else{%>
+                      <%}%>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+          <%=pis.length %>
+            <!-- TODO: colocar do lado da tabela -->
+            <button><a href="/">Back</a></button>
+            <button><a href="/matchTag">Match</a></button>
+  </div>
 </body>
+
 </html>

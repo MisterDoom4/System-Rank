@@ -24,7 +24,9 @@ a {
     --bs-nav-link-color: white;
     --bs-nav-link-hover-color: rgb(185, 177, 181);
 }
-
+.content{
+    margin-top: 10%;
+}
 table {
     table-layout: fixed;
 }

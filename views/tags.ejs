@@ -1,41 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Lista Tags</title>
 </head>
+
 <body>
-  <h2>Tag Teams<h2>
-    <button><a href="/api/createPagTag">Adicionar</a></button> <!-- TODO: queria o botão na esquerda da tabela -->
-    <table border="1">
-    <thead>
-      <tr>
-        <td>Name</td>
-        <td>Points</td>
-        <td>Participant</td>
-        <td>Participant</td>
-      </tr>
-    </thead>
-    <tbody>
-      <% pis.forEach(function(data) { %>
-        <tr>
-          <td><%= data.name %></td>
-          <td><%= data.points %></td>
-          <td><a href ="/api/show?name=<%= data.participant[0].name %>"><%= data.participant[0].name %></a></td>
-          <td><a href ="/api/show?name=<%= data.participant[1].name %>"><%= data.participant[1].name %></a></td>
-          <td><a href="/api/editTag/<%= data._id %>">Edit</a> | 
-            <a onclick="confirmation('Delete record?!','/api/deleteTag/<%= data._id %>')" 
-                href=#>Delete</a></td>
-        </tr>
-     <% }) %>
-   </tbody>
-   <button><a href="/">Back</a></button>
-   <script>
+  <div class="content">
+    <h2>Tag Teams<h2>
+        <button><a href="/api/createPagTag">Adicionar</a></button> <!-- TODO: queria o botão na esquerda da tabela -->
+        <table border="1">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Points</td>
+              <td>Participant</td>
+              <td>Participant</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% pis.forEach(function(data) { %>
+              <tr>
+                <td>
+                  <%= data.name %>
+                </td>
+                <td>
+                  <%= data.points %>
+                </td>
+                <td><a href="/api/show?name=<%= data.participant[0].name %>">
+                    <%= data.participant[0].name %>
+                  </a></td>
+                <td><a href="/api/show?name=<%= data.participant[1].name %>">
+                    <%= data.participant[1].name %>
+                  </a></td>
+                <td><a href="/api/editTag/<%= data._id %>">Edit</a> |
+                  <a onclick="confirmation('Delete record?!','/api/deleteTag/<%= data._id %>')" href=#>Delete</a>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+          <button><a href="/">Back</a></button>
+  </div>
+  <script>
     function confirmation(msg, url) {
-      if(confirm(msg)) {
+      if (confirm(msg)) {
         window.location.href = url;
-      }else{ false; }
+      } else { false; }
     }
-    </script>
+  </script>
 </body>
+
 </html>
