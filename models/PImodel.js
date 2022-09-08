@@ -32,6 +32,10 @@ const tgSchema = new Schema({
     type: Boolean,
     default: false
   },
+  genre: {
+    type: String,
+    required:[true, '*Campo obrigatório']
+  },
   points:{
     type: Number,
     default: 0

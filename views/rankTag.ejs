@@ -23,7 +23,7 @@
         <tr>
           <td><a href ="/api/showTag?name=<%= data.name %>"><%= data.name %></a></td>
           <td><%= data.points %></td>
-          <td><%= data.champion %></td>
+          <td><% if(data.champion){%>  🏆  <% } else{%><%}%></td>
         </tr>
      <% }) %>
    </tbody>

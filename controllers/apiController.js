@@ -2,39 +2,39 @@ const { PI, TAG } = require('../models/PImodel');
 
 // entrar na pagina de criação de pessoa
 exports.createPagWrestler = function (req, res, next) {
-  res.render('WRESTLER', { erro: "" });
+  res.render('createWrestler', { erro: "" });
 };
 
 // entrar na pagina de criação de tag
 exports.createPagTag = function (req, res, next) {
-  res.render('TAG', { erro: "" });
+  res.render('createTag', { erro: "" });
 };
 
 // listar todas as pessoas
 exports.listAll = function (req, res, next) {
   PI.find({}).sort({ name: 1 }).then(function (pi) {
-    res.render('listPIs', { pis: pi });
+    res.render('wrestlers', { pis: pi });
   }).catch(next);
 };
 
 // listar todas as tags
 exports.listAllTag = function (req, res, next) {
   TAG.find({}).then(function (pi) {
-    res.render('listTAGS', { pis: pi });
+    res.render('tags', { pis: pi });
   }).catch(next);
 };
 
 // filtrar por genero
 exports.filterGenre = function (req, res, next) {
   PI.find({ genre: req.params.genre }).sort({ name: 1 }).then(function (pi) {
-    res.render('listPIs', { pis: pi });
+    res.render('wrestlers', { pis: pi });
   }).catch(next);
 };
 
 // ordenar por genero
 exports.sortGenre = function (req, res, next) {
   PI.find({}).sort({ genre: 1 }).then(function (pi) {
-    res.render('listPIs', { pis: pi });
+    res.render('wrestlers', { pis: pi });
   }).catch(next);
 };
 
@@ -42,7 +42,7 @@ exports.sortGenre = function (req, res, next) {
 exports.show = function (req, res, next) {
   let nm = req.query.name;
   PI.find({ name: { $regex: nm } }).sort({ name: 1 }).then(function (pi) {
-    res.render('listPIs', { pis: pi });
+    res.render('wrestlers', { pis: pi });
   }).catch(next);
 };
 
@@ -50,7 +50,7 @@ exports.show = function (req, res, next) {
 exports.showTag = function (req, res, next) {
   let nm = req.query.name;
   TAG.find({ name: { $regex: nm } }).sort({ name: 1 }).then(function (pi) {
-    res.render('listTAGS', { pis: pi });
+    res.render('tags', { pis: pi });
   }).catch(next);
 };
 
@@ -69,14 +69,14 @@ exports.showRankTag = function (req, res, next) {
 // listar pessoa por id para editar
 exports.edit = function (req, res, next) {
   PI.findOne({ _id: req.params.id }).then(function (pi) {
-    res.render('editPI', { pi: pi });
+    res.render('editWrestler', { pi: pi });
   }).catch(next);
 };
 
 // listar tag por id para editar
 exports.editTag = function (req, res, next) {
   TAG.findOne({ _id: req.params.id }).then(function (pi) {
-    res.render('editTAG', { pi: pi });
+    res.render('editTag', { pi: pi });
   }).catch(next);
 };
 
@@ -85,7 +85,7 @@ exports.add = function (req, res, next) {
   let nm = req.body.name;
   PI.find({ name: nm }).then(function (pi) {
     if (pi.length > 0) {
-      res.render('WRESTLER', { erro: "ja cadastrado" });
+      res.render('createWrestle', { erro: "ja cadastrado" });
     }
     else {
       PI.create(req.body).then(function (pi) {
@@ -104,12 +104,12 @@ exports.addTag = function (req, res, next) {
   let id2;
   TAG.find({ name: nm }).then(function (pi) {
     if (pi.length > 0) {
-      res.render('TAG', { erro: "Nome já cadastrado" });
+      res.render('createTag', { erro: "Nome já cadastrado" });
     }
     else {
       TAG.find({ $or: [{ 'participant.name': p1 }, { 'participant.name': p2 }] }).then(function (pi) {
         if (pi.length > 0) {
-          res.render('TAG', { erro: "Participante já tem Tag" });
+          res.render('createTag', { erro: "Participante já tem Tag" });
         }
         else {
           PI.findOne({ name: p1 }).then(function (pi) {
@@ -120,6 +120,7 @@ exports.addTag = function (req, res, next) {
             }).then(function (pi3) {
               let data = {
                 name: nm,
+                genre: req.body.genre,
                 participant: [{
                   _id: id,
                   name: p1
