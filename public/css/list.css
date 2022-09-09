@@ -28,7 +28,9 @@ h1 {
     border-radius: 2%;
     text-align: center;
 }
-
+.tag{
+   width: 330px;
+}
 .container {
     --bs-gutter-x: 0;
 }

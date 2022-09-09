@@ -3,45 +3,59 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Lista Tags</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/list.css">
+  <title>Lista Wrestlers</title>
 </head>
 
 <body>
   <div class="content">
-    <h2>Tag Teams<h2>
-        <button><a href="/api/createPagTag">Adicionar</a></button> <!-- TODO: queria o botão na esquerda da tabela -->
-        <table border="1">
-          <thead>
-            <tr>
-              <td>Name</td>
-              <td>Points</td>
-              <td>Participant</td>
-              <td>Participant</td>
-            </tr>
-          </thead>
-          <tbody>
-            <% pis.forEach(function(data) { %>
-              <tr>
-                <td>
-                  <%= data.name %>
-                </td>
-                <td>
-                  <%= data.points %>
-                </td>
-                <td><a href="/api/show?name=<%= data.participant[0].name %>">
-                    <%= data.participant[0].name %>
-                  </a></td>
-                <td><a href="/api/show?name=<%= data.participant[1].name %>">
-                    <%= data.participant[1].name %>
-                  </a></td>
-                <td><a href="/api/editTag/<%= data._id %>">Edit</a> |
-                  <a onclick="confirmation('Delete record?!','/api/deleteTag/<%= data._id %>')" href=#>Delete</a>
-                </td>
-              </tr>
-              <% }) %>
-          </tbody>
-          <button><a href="/">Back</a></button>
+    <h1>Tags</h1>
+    <div class="search">
+      <div class="add-button">
+        <a href="/api/createPagTag">Add</a>
+      </div>
+      <form autocomplete="off" action="/api/showTag?" method="GET">
+        <div class="autocomplete" style="width:300px;">
+          <input id="search-field" type="text" name="name" placeholder="Search">
+        </div>
+        <button id="search-button" type="submit">Search</button>
+      </form>
+      <div class="genre"><a href="/api/listAllTags">All</a></div>
+      <div class="genre"><a href="/api/filterGenre/M">Mens</a></div>
+      <div class="genre"><a href="/api/filterGenre/F">Womens</a></div>
+    </div>
+    <div id="wrestlers">
+      <% pis.forEach(function(data) { %>
+        <div class="container wrestler tag">
+          <div class="grid-content">
+            <% if(data.champion){%>
+              <div class="champion "><img src="/images/<%= data.name %>.png" /></div>
+              <% } else{%>
+                <div class="no-champion"><img src="/images/<%= data.name %>.png" /></div>
+                <%}%>
+                  <figcaption>
+                    <div class="grid-caption">
+                      <h4 class="grid-caption-text"><a href="/api/showTag?name=<%= data.name %>">
+                          <%= data.name %>
+                        </a></h4>
+                    </div>
+                  </figcaption>
+          </div>
+          <div class="links-edit-delete"><a href="/api/editTag/<%= data._id %>">Edit</a></div>
+          <div class="links-edit-delete"><a onclick="confirmation('Delete record?!','/api/delete/<%= data._id %>')"
+              href=#>Delete</a></div>
+        </div>
+        <% }) %>
+    </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+    crossorigin="anonymous"></script>
   <script>
     function confirmation(msg, url) {
       if (confirm(msg)) {
@@ -49,6 +63,7 @@
       } else { false; }
     }
   </script>
+  <script type="text/javascript" src="/scripts/autocompleteTag.js"></script>
 </body>
 
 </html>
