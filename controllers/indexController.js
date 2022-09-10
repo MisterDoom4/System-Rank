@@ -1,6 +1,6 @@
 // exporta f.teste, chamada em /routes/index
 exports.index = function (req, res) {
-    res.render('welcome');
+    res.render('home');
   };
   // exports.list = function(req, res){
   //   res.render('listPIs');
