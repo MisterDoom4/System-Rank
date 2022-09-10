@@ -17,10 +17,10 @@ router.get('/listAll',apiController.listAll);
 router.get('/listAllTags',apiController.listAllTag);
 
 // listar por genero
-router.get('/filterGenre/:genre',apiController.filterGenre);
+router.get('/listGenre/:genre',apiController.listGenre);
 
-// ordenar por genero
-router.get('/sortGenre',apiController.sortGenre);
+//listar tag por genero
+router.get('/listTagGenre/:genre',apiController.listTagGenre);
 
 // listar pessoa(s) especifica(s)
 router.get('/show',apiController.show);
@@ -64,14 +64,17 @@ router.get('/list',apiController.list);
 // listar todos as tags  mas sem formatação
 router.get('/listTag',apiController.listTag);
 
-// listar tag especifica sem formatação pelo name
-router.get('/showTag/:name',apiController.showTagByName);
-
 // criar match
 router.post('/match',apiController.match);
 
-// // criar match
+// criar match do tag
 router.post('/matchTag',apiController.matchTag);
+
+// listar top 5 junto com o campeao sem formatar
+router.get('/top5',apiController.top5);
+
+// listar top 5 junto com o campeao sem formatar
+router.get('/top5Tag',apiController.top5Tag);
 
 //resetar pontos
 router.post('/reset',apiController.reset);

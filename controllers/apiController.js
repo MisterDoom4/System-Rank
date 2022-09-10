@@ -25,16 +25,15 @@ exports.listAllTag = function (req, res, next) {
 };
 
 // filtrar por genero
-exports.filterGenre = function (req, res, next) {
+exports.listGenre = function (req, res, next) {
   PI.find({ genre: req.params.genre }).sort({ name: 1 }).then(function (pi) {
     res.render('wrestlers', { pis: pi });
   }).catch(next);
 };
-
-// ordenar por genero
-exports.sortGenre = function (req, res, next) {
-  PI.find({}).sort({ genre: 1 }).then(function (pi) {
-    res.render('wrestlers', { pis: pi });
+// filtrar tag por genero
+exports.listTagGenre = function (req, res, next) {
+  TAG.find({ genre: req.params.genre }).sort({ name: 1 }).then(function (pi) {
+    res.render('tags', { pis: pi });
   }).catch(next);
 };
 
@@ -483,12 +482,6 @@ exports.listTag = function (req, res, next) {
     res.send(pi);
   }).catch(next);
 };
-//listar tag especifica sem formatação pelo name
-exports.showTagByName = function (req, res, next) {
-  TAG.find({ name: req.params.name }).then(function (pi) {
-    res.send(pi);
-  }).catch(next);
-};
 
 // criar match
 exports.match = function (req, res, next) {
@@ -622,6 +615,8 @@ exports.match = function (req, res, next) {
     })
   }).catch(next);
 };
+
+// criar match tag
 exports.matchTag = function(req,res,next){
   let win;
   let los;
@@ -702,6 +697,20 @@ exports.matchTag = function(req,res,next){
     })
   }).catch(next);
 }
+
+// listar top 5 junto com o campeao sem formatar
+exports.top5 = function(req,res,next){
+  PI.find({ main: req.query.main, genre: req.query.genre }).sort({ champion: -1, points: -1 }).limit(6).then(function (pi) {
+    res.send(pi);
+  }).catch(next);
+};
+
+// listar top 5 de Tag junto com o campeao sem formatar
+exports.top5Tag = function(req,res,next){
+  TAG.find({ genre: req.query.genre }).sort({ champion: -1, points: -1 }).limit(6).then(function (pi) {
+    res.send(pi);
+  }).catch(next);
+};
 exports.reset = function (req, res, next) {
   PI.updateMany({}, { points: 0 }).then(function (pi) {
     res.send("reset bem sucedido");
