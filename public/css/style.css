@@ -28,22 +28,25 @@ a {
     margin-top: 10%;
 }
 
-#principal-m td {
-    padding-right: 49px;
-}
 
-#secundario-m td {
-    padding-right: 51.5px;
-}
-
-#secundario-f td {
-    padding-right: 50.3px;
-}
-.wrestler img{
+.wrestler img {
     margin-left: 6%;
 }
+
+.tag img {
+    margin-left: 8%;
+}
+
 table {
     table-layout: fixed;
+}
+
+.ranks.tag table {
+    min-width: 386px;
+}
+
+.ranks.wrestler table {
+    min-width: 316px;
 }
 
 .tbl-header {
@@ -81,6 +84,10 @@ tr {
     background-color: rgb(5, 5, 5);
 }
 
+.ranks.tag {
+    width: 394px;
+}
+
 .champion {
     background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%) no-repeat,
         radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%) no-repeat;
@@ -100,11 +107,7 @@ tr {
 }
 
 .ranks.tag td {
-    padding-right: 50.7px;
-}
-
-.ranks.wrestler td {
-    padding-right: 41px;
+    padding-right: 65.8px;
 }
 
 .grid-content {

@@ -494,7 +494,7 @@ exports.match = function (req, res, next) {
       if (los == null) {
         win.points++;
         PI.findByIdAndUpdate(win._id, { points: win.points }).then(function (pi) {
-          res.redirect('/match');
+          res.render('match');
         })
       }
       else {
@@ -502,18 +502,18 @@ exports.match = function (req, res, next) {
           if (req.body.champion) {
             if (win.champion) {
               PI.findByIdAndUpdate(los._id, { points: 0 }).then(function (pi) {
-                res.redirect('/match');
+                res.render('');
               })
             }
             if (los.champion) {
               PI.findByIdAndUpdate(los._id, { champion: false }).then(function (pi) {
                 PI.findByIdAndUpdate(win._id, { champion: true, points: 0 }).then(function (pi) {
-                  res.redirect('/match');
+                  res.render('match');
                 })
               })
             }
             else {
-              res.redirect('/match');
+              res.redirect('match');
             }
           }
           else {
@@ -522,7 +522,7 @@ exports.match = function (req, res, next) {
               win.points += 4;
               PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                 PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                  res.redirect('/match');
+                  res.render('match');
                 })
               })
             }
@@ -533,7 +533,7 @@ exports.match = function (req, res, next) {
                   win.points += 2;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.redirect('/match');
+                      res.redirect('match');
                     })
                   })
                 }
@@ -542,7 +542,7 @@ exports.match = function (req, res, next) {
                   win.points++;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.redirect('/match');
+                      res.render('match');
                     })
                   })
                 }
@@ -551,7 +551,7 @@ exports.match = function (req, res, next) {
                   win.points += 3;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.redirect('/match');
+                      res.render('match');
                     })
                   })
                 }
@@ -562,7 +562,7 @@ exports.match = function (req, res, next) {
                   win.points++;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.redirect('/match');
+                      res.render('match');
                     })
                   })
                 }
@@ -571,7 +571,7 @@ exports.match = function (req, res, next) {
                   win.points += 3;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.redirect('/match');
+                      res.render('match');
                     })
                   })
                 }
@@ -581,7 +581,7 @@ exports.match = function (req, res, next) {
                     win.points += 2;
                     PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                       PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                        res.redirect('/match');
+                        res.render('match');
                       })
                     })
                   }
@@ -590,7 +590,7 @@ exports.match = function (req, res, next) {
                     win.points++;
                     PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                       PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                        res.redirect('/match');
+                        res.render('match');
                       })
                     })
                   }
@@ -599,7 +599,7 @@ exports.match = function (req, res, next) {
                     win.points += 3;
                     PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                       PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                        res.redirect('/match');
+                        res.render('match');
                       })
                     })
                   }
@@ -609,7 +609,7 @@ exports.match = function (req, res, next) {
           }
         }
         else {
-          res.redirect('/match');
+          res.render('match');
         }
       }
     })
@@ -627,7 +627,7 @@ exports.matchTag = function(req,res,next){
       if (los == null) {
         win.points++;
         TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function (pi) {
-          res.redirect('/matchTag');
+          res.render('matchTag');
         })
       }
       else {
@@ -635,18 +635,18 @@ exports.matchTag = function(req,res,next){
           if (req.body.champion) {
             if (win.champion) {
               TAG.findByIdAndUpdate(los._id, { points: 0 }).then(function (pi) {
-                res.redirect('/matchTag');
+                res.render('matchTag');
               })
             }
             if (los.champion) {
               TAG.findByIdAndUpdate(los._id, { champion: false }).then(function (pi) {
                 TAG.findByIdAndUpdate(win._id, { champion: true, points: 0 }).then(function (pi) {
-                  res.redirect('/matchTag');
+                  res.render('matchTag');
                 })
               })
             }
             else {
-              res.redirect('/matchTag');
+              res.render('matchTag');
             }
           }
           else {
@@ -655,7 +655,7 @@ exports.matchTag = function(req,res,next){
               win.points += 4;
               TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                 TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                  res.redirect('/matchTag');
+                  res.render('matchTag');
                 })
               })
             }
@@ -665,7 +665,7 @@ exports.matchTag = function(req,res,next){
                   win.points += 2;
                   TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.redirect('/matchTag');
+                      res.render('matchTag');
                     })
                   })
                 }
@@ -674,7 +674,7 @@ exports.matchTag = function(req,res,next){
                   win.points++;
                   TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.redirect('/matchTag');
+                      res.render('matchTag');
                     })
                   })
                 }
@@ -683,7 +683,7 @@ exports.matchTag = function(req,res,next){
                   win.points += 3;
                   TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.redirect('/matchTag');
+                      res.render('matchTag');
                     })
                   })
                 }

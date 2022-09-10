@@ -28,6 +28,9 @@ h1 {
     border-radius: 2%;
     text-align: center;
 }
+.wrestler img{
+    margin-left: 0;
+}
 .tag{
    width: 330px;
 }
