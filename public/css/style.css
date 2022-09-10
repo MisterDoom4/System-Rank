@@ -8,7 +8,6 @@ a {
 
 #cabecalho {
     background-color: black;
-    width: 100%;
     position: fixed;
     top: 0;
     left: 0;
@@ -24,11 +23,24 @@ a {
     --bs-nav-link-color: white;
     --bs-nav-link-hover-color: rgb(185, 177, 181);
 }
-.content{
+
+.content {
     margin-top: 10%;
 }
-.genre{
-    margin-left: -4%;
+
+#principal-m td {
+    padding-right: 49px;
+}
+
+#secundario-m td {
+    padding-right: 51.5px;
+}
+
+#secundario-f td {
+    padding-right: 50.3px;
+}
+.wrestler img{
+    margin-left: 6%;
 }
 table {
     table-layout: fixed;
@@ -54,9 +66,6 @@ td {
     font-weight: bold;
     white-space: nowrap;
 }
-.name{
-    width:200px;
-}
 
 tr {
     border: 1px solid black;
@@ -67,7 +76,7 @@ tr {
 .ranks {
     display: inline-block;
     margin-top: 0.5%;
-    margin-left: 14.8%;
+    margin-left: 12.4%;
     border: 4px solid black;
     background-color: rgb(5, 5, 5);
 }
@@ -85,15 +94,17 @@ tr {
     background: #FFFFFF;
     font-weight: bold;
 }
-.ranks.wrestler{
-    width: 298px;
+
+.ranks.wrestler {
+    width: 324px;
 }
+
 .ranks.tag td {
     padding-right: 50.7px;
 }
 
 .ranks.wrestler td {
-    padding-right: 42.5px;
+    padding-right: 41px;
 }
 
 .grid-content {

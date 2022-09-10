@@ -134,7 +134,7 @@ function createtop5FemaleSecundary() {
   request.send();
 }
 function createtop5FemalePrincipal() {
-  let tab = '';
+  let tab = ``;
   let url = '/api/top5?main=true&genre=F';
   let request = new XMLHttpRequest();
   request.open('GET', url, true);
