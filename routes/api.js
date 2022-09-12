@@ -64,6 +64,9 @@ router.get('/list',apiController.list);
 // listar todos as tags  mas sem formatação
 router.get('/listTag',apiController.listTag);
 
+// listar tag especifica sem formatação pelo name
+router.get('/showTag/:name',apiController.showTagByName);
+
 // criar match
 router.post('/match',apiController.match);
 

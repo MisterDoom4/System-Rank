@@ -53,6 +53,13 @@ exports.showTag = function (req, res, next) {
   }).catch(next);
 };
 
+//listar tag especifica sem formatação pelo name
+exports.showTagByName = function (req, res, next) {
+  TAG.find({ name: req.params.name }).then(function (pi) {
+    res.send(pi);
+  }).catch(next);
+};
+
 //listar pela divisão e genero
 exports.showRank = function (req, res, next) {
   PI.find({ main: req.query.main, genre: req.query.genre }).sort({ champion: -1, points: -1 }).then(function (pi) {
@@ -494,7 +501,6 @@ exports.match = function (req, res, next) {
       if (los == null) {
         win.points++;
         PI.findByIdAndUpdate(win._id, { points: win.points }).then(function (pi) {
-          res.render('match');
         })
       }
       else {
@@ -502,18 +508,13 @@ exports.match = function (req, res, next) {
           if (req.body.champion) {
             if (win.champion) {
               PI.findByIdAndUpdate(los._id, { points: 0 }).then(function (pi) {
-                res.render('');
               })
             }
             if (los.champion) {
               PI.findByIdAndUpdate(los._id, { champion: false }).then(function (pi) {
                 PI.findByIdAndUpdate(win._id, { champion: true, points: 0 }).then(function (pi) {
-                  res.render('match');
                 })
               })
-            }
-            else {
-              res.redirect('match');
             }
           }
           else {
@@ -522,7 +523,6 @@ exports.match = function (req, res, next) {
               win.points += 4;
               PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                 PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                  res.render('match');
                 })
               })
             }
@@ -533,7 +533,6 @@ exports.match = function (req, res, next) {
                   win.points += 2;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.redirect('match');
                     })
                   })
                 }
@@ -542,7 +541,6 @@ exports.match = function (req, res, next) {
                   win.points++;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.render('match');
                     })
                   })
                 }
@@ -551,7 +549,6 @@ exports.match = function (req, res, next) {
                   win.points += 3;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.render('match');
                     })
                   })
                 }
@@ -562,7 +559,6 @@ exports.match = function (req, res, next) {
                   win.points++;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.render('match');
                     })
                   })
                 }
@@ -571,7 +567,6 @@ exports.match = function (req, res, next) {
                   win.points += 3;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.render('match');
                     })
                   })
                 }
@@ -581,7 +576,6 @@ exports.match = function (req, res, next) {
                     win.points += 2;
                     PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                       PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                        res.render('match');
                       })
                     })
                   }
@@ -590,7 +584,6 @@ exports.match = function (req, res, next) {
                     win.points++;
                     PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                       PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                        res.render('match');
                       })
                     })
                   }
@@ -599,7 +592,6 @@ exports.match = function (req, res, next) {
                     win.points += 3;
                     PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                       PI.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                        res.render('match');
                       })
                     })
                   }
@@ -608,12 +600,10 @@ exports.match = function (req, res, next) {
             }
           }
         }
-        else {
-          res.render('match');
-        }
       }
     })
   }).catch(next);
+  res.render('match');
 };
 
 // criar match tag
@@ -627,7 +617,6 @@ exports.matchTag = function(req,res,next){
       if (los == null) {
         win.points++;
         TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function (pi) {
-          res.render('matchTag');
         })
       }
       else {
@@ -635,18 +624,13 @@ exports.matchTag = function(req,res,next){
           if (req.body.champion) {
             if (win.champion) {
               TAG.findByIdAndUpdate(los._id, { points: 0 }).then(function (pi) {
-                res.render('matchTag');
               })
             }
             if (los.champion) {
               TAG.findByIdAndUpdate(los._id, { champion: false }).then(function (pi) {
                 TAG.findByIdAndUpdate(win._id, { champion: true, points: 0 }).then(function (pi) {
-                  res.render('matchTag');
                 })
               })
-            }
-            else {
-              res.render('matchTag');
             }
           }
           else {
@@ -655,7 +639,6 @@ exports.matchTag = function(req,res,next){
               win.points += 4;
               TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                 TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                  res.render('matchTag');
                 })
               })
             }
@@ -665,7 +648,6 @@ exports.matchTag = function(req,res,next){
                   win.points += 2;
                   TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.render('matchTag');
                     })
                   })
                 }
@@ -674,7 +656,6 @@ exports.matchTag = function(req,res,next){
                   win.points++;
                   TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.render('matchTag');
                     })
                   })
                 }
@@ -683,7 +664,6 @@ exports.matchTag = function(req,res,next){
                   win.points += 3;
                   TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
                     TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                      res.render('matchTag');
                     })
                   })
                 }
@@ -696,6 +676,7 @@ exports.matchTag = function(req,res,next){
       }
     })
   }).catch(next);
+  res.render('matchTag');
 }
 
 // listar top 5 junto com o campeao sem formatar
