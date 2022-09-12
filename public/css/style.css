@@ -23,6 +23,14 @@ a {
     --bs-nav-link-color: white;
     --bs-nav-link-hover-color: rgb(185, 177, 181);
 }
+#reset{
+    background: black;
+    --bs-btn-color:white;
+    border:none;
+    --bs-btn-padding-y: 0.500rem;
+    --bs-btn-hover-color: rgb(185, 177, 181);
+    --bs-btn-focus-shadow-rgb:black;
+}
 
 .content {
     margin-top: 10%;

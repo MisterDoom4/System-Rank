@@ -713,6 +713,8 @@ exports.top5Tag = function(req,res,next){
 };
 exports.reset = function (req, res, next) {
   PI.updateMany({}, { points: 0 }).then(function (pi) {
-    res.send("reset bem sucedido");
+    TAG.updateMany({}, { points: 0 }).then(function(pi){
+      res.send("reset bem sucedido");
+    })
   }).catch(next);
 };
