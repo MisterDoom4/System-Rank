@@ -41,7 +41,7 @@ exports.listTagGenre = function (req, res, next) {
 exports.show = function (req, res, next) {
   let nm = req.query.name;
   PI.find({ name: { $regex: nm } }).sort({ name: 1 }).then(function (pi) {
-    res.render('wrestlers', { pis: pi });
+    res.render('wrestler', { pis: pi });
   }).catch(next);
 };
 
@@ -49,7 +49,7 @@ exports.show = function (req, res, next) {
 exports.showTag = function (req, res, next) {
   let nm = req.query.name;
   TAG.find({ name: { $regex: nm } }).sort({ name: 1 }).then(function (pi) {
-    res.render('tags', { pis: pi });
+    res.render('tag', { pis: pi });
   }).catch(next);
 };
 

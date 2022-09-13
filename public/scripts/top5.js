@@ -12,7 +12,7 @@ function createtop5Secundary() {
             <div class="champion"><img src="/images/${data[i].name}.png" /></div>
             <figcaption>
               <div class="grid-caption">
-                <h4 class="grid-caption-text"><a href="">${data[i].name}</a></h4>
+                <h4 class="grid-caption-text"><a href="/api/show?name=${data[i].name}">${data[i].name}</a></h4>
               </div>
             </figcaption>
           </div>
@@ -57,7 +57,7 @@ function createtop5Principal() {
             <div class="champion"><img src="/images/${data[i].name}.png" /></div>
             <figcaption>
               <div class="grid-caption">
-                <h4 class="grid-caption-text"><a href="">${data[i].name}</a></h4>
+                <h4 class="grid-caption-text"><a href="/api/show?name=${data[i].name}">${data[i].name}</a></h4>
               </div>
             </figcaption>
           </div>
@@ -102,7 +102,7 @@ function createtop5FemaleSecundary() {
             <div class="champion"><img src="/images/${data[i].name}.png" /></div>
             <figcaption>
               <div class="grid-caption">
-                <h4 class="grid-caption-text"><a href="">${data[i].name}</a></h4>
+                <h4 class="grid-caption-text"><a href="/api/show?name=${data[i].name}">${data[i].name}</a></h4>
               </div>
             </figcaption>
           </div>
@@ -147,7 +147,7 @@ function createtop5FemalePrincipal() {
             <div class="champion"><img src="/images/${data[i].name}.png" /></div>
             <figcaption>
               <div class="grid-caption">
-                <h4 class="grid-caption-text"><a href="">${data[i].name}</a></h4>
+                <h4 class="grid-caption-text"><a href="/api/show?name=${data[i].name}">${data[i].name}</a></h4>
               </div>
             </figcaption>
           </div>
@@ -192,7 +192,7 @@ function createtop5Tag() {
             <div class="champion"><img src="/images/${data[i].name}.png" /></div>
             <figcaption>
               <div class="grid-caption">
-                <h4 class="grid-caption-text"><a href="">${data[i].name}</a></h4>
+                <h4 class="grid-caption-text"><a href="/api/showTag?name=${data[i].name}">${data[i].name}</a></h4>
               </div>
             </figcaption>
           </div>
