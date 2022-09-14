@@ -3,19 +3,15 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="/css/list.css">
+  <link rel="stylesheet" type="text/css" href="/css/ranks.css">
   <title>Rank</title>
 </head>
 
 <body>
   <div class="content">
-    <h1>Rank<h1>
-        <div>
-          <button><a href="/api/showRank?main=true&genre=M">Principal Masculino</a></button>
-          <!-- TODO: queria o botão na esquerda da tabela -->
-          <button><a href="/api/showRank?main=false&genre=M">Secundário Masculino</a></button>
-          <button><a href="/api/showRank?main=true&genre=F">Principal Feminino</a></button>
-          <button><a href="/api/showRank?main=false&genre=F">Secundário Feminino</a></button>
+    <h1>Ranks</h1>
+        <div id="divisions">
+          
         </div>
         <table border="1">
           <thead>
@@ -44,11 +40,12 @@
               </tr>
               <% }) %>
           </tbody>
-          <%=pis.length %>
+          Total:<%=pis.length %>
             <!-- TODO: colocar do lado da tabela -->
-            <button><a href="/">Back</a></button>
             <button><a href="/match">Match</a></button>
   </div>
+  <script type="text/javascript" src="/scripts/champion.js"></script>
+  <script>champion();</script>
 </body>
 
 </html>

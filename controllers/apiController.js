@@ -692,6 +692,21 @@ exports.top5Tag = function(req,res,next){
     res.send(pi);
   }).catch(next);
 };
+
+// listar os campeoes sem formatar
+exports.champion = function(req,res,next){
+  PI.find({champion : true}).sort({genre: -1, main:-1}).then(function(pi){
+    res.send(pi);
+  }).catch(next);
+}
+
+// listar os campeoes tag sem formatar
+exports.championTag = function(req,res,next){
+  TAG.find({champion : true}).sort({genre:-1}).then(function(pi){
+    res.send(pi);
+  }).catch(next);
+}
+
 exports.reset = function (req, res, next) {
   PI.updateMany({}, { points: 0 }).then(function (pi) {
     TAG.updateMany({}, { points: 0 }).then(function(pi){

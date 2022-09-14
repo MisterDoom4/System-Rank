@@ -79,6 +79,12 @@ router.get('/top5',apiController.top5);
 // listar top 5 junto com o campeao sem formatar
 router.get('/top5Tag',apiController.top5Tag);
 
+// listar os campeoes sem formatar
+router.get('/champions',apiController.champion);
+
+// listar os campeoes tag sem formatar
+router.get('/championsTag',apiController.championTag);
+
 //resetar pontos
 router.post('/reset',apiController.reset);
 
