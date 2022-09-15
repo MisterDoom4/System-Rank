@@ -1,6 +1,6 @@
 // api url
 const api_url =
-    "https://system-rank.herokuapp.com/api/listTag";
+    "/api/getAllTag";
 
 // Defining async function
 async function getapi(url) {

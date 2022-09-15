@@ -16,16 +16,22 @@ router.get('/listAll',apiController.listAll);
 // listar todas as tags
 router.get('/listAllTags',apiController.listAllTag);
 
+//listar por nome
+router.get('/list',apiController.search)
+
+//listar por nome tag
+router.get('/listTag',apiController.searchTag)
+
 // listar por genero
 router.get('/listGenre/:genre',apiController.listGenre);
 
 //listar tag por genero
 router.get('/listTagGenre/:genre',apiController.listTagGenre);
 
-// listar pessoa(s) especifica(s)
+// mostrar pessoa especifica
 router.get('/show',apiController.show);
 
-// listar tag especifica
+// mostrar tag especifica
 router.get('/showTag',apiController.showTag);
 
 // listar pela divisão e genero
@@ -59,10 +65,10 @@ router.get('/delete/:id',apiController.delete);
 router.get('/deleteTag/:id',apiController.deleteTag);
 
 // listar todos mas sem formatação
-router.get('/list',apiController.list);
+router.get('/getAll',apiController.list);
 
 // listar todos as tags  mas sem formatação
-router.get('/listTag',apiController.listTag);
+router.get('/getAllTag',apiController.listTag);
 
 // listar tag especifica sem formatação pelo name
 router.get('/showTag/:name',apiController.showTagByName);

@@ -6,7 +6,7 @@ function createWinner(){
     defaultOption.text = 'Vencedor';
     winner.add(defaultOption);
     winner.selectedIndex = 0;
-    const url = '/api/list';
+    const url = '/api/getAll';
     const request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.onload = function() {
@@ -33,7 +33,7 @@ function createLoser(){
     defaultOption2.text = 'Perdedor';
     loser.add(defaultOption2);
     loser.selectedIndex = 0;
-    const url2 = '/api/list';
+    const url2 = '/api/getAll';
     const request2 = new XMLHttpRequest();
     request2.open('GET', url2, true);
     request2.onload = function() {

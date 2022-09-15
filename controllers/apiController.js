@@ -24,6 +24,22 @@ exports.listAllTag = function (req, res, next) {
   }).catch(next);
 };
 
+// listar por nome
+exports.search = function(req,res,next){
+  let nm = req.query.name;
+  PI.find({ name: { $regex: nm } }).sort({ name: 1 }).then(function (pi) {
+    res.render('wrestlers', { pis: pi });
+  }).catch(next);
+}
+
+// listar por nome tag
+exports.searchTag = function(req,res,next){
+  let nm = req.query.name;
+  TAG.find({ name: { $regex: nm } }).sort({ name: 1 }).then(function (pi) {
+    res.render('tags', { pis: pi });
+  }).catch(next);
+}
+
 // filtrar por genero
 exports.listGenre = function (req, res, next) {
   PI.find({ genre: req.params.genre }).sort({ name: 1 }).then(function (pi) {
@@ -62,13 +78,13 @@ exports.showTagByName = function (req, res, next) {
 
 //listar pela divisão e genero
 exports.showRank = function (req, res, next) {
-  PI.find({ main: req.query.main, genre: req.query.genre }).sort({ champion: -1, points: -1 }).then(function (pi) {
+  PI.find({ champion:false, main: req.query.main, genre: req.query.genre }).sort({ champion: -1, points: -1 }).then(function (pi) {
     res.render('rank', { pis: pi });
   }).catch(next);
 };
 //listar tag pelo genero
 exports.showRankTag = function (req, res, next) {
-  TAG.find({ genre: req.query.genre }).sort({ champion: -1, points: -1 }).then(function (pi) {
+  TAG.find({ champion: false, genre: req.query.genre }).sort({ champion: -1, points: -1 }).then(function (pi) {
     res.render('rankTag', { pis: pi });
   }).catch(next);
 };
@@ -536,7 +552,7 @@ exports.match = function (req, res, next) {
                     })
                   })
                 }
-                if (win.points > los.points) {
+                else if (win.points > los.points) {
                   los.points--;
                   win.points++;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
@@ -562,7 +578,7 @@ exports.match = function (req, res, next) {
                     })
                   })
                 }
-                if (los.main) {
+                else if (los.main) {
                   los.points -= 2;
                   win.points += 3;
                   PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
@@ -579,7 +595,7 @@ exports.match = function (req, res, next) {
                       })
                     })
                   }
-                  if (win.points > los.points) {
+                  else if (win.points > los.points) {
                     los.points--;
                     win.points++;
                     PI.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
@@ -651,7 +667,7 @@ exports.matchTag = function(req,res,next){
                     })
                   })
                 }
-                if (win.points > los.points) {
+                else if (win.points > los.points) {
                   los.points--;
                   win.points++;
                   TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
