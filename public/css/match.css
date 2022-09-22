@@ -1,0 +1,6 @@
+.match-card{
+    background-image: url(/images/backgrounds/card.jpg);
+    background-repeat: no-repeat;
+    min-height: 670px;
+    margin-left: 20%;
+}

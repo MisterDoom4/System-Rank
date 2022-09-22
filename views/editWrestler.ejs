@@ -3,24 +3,37 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/edit.css">
   <title>Edit Wrestler</title>
 </head>
 
 <body>
   <div class="content">
-    <h2>Edit</h2>
-    <form action="/api/update/<%= pi._id %>" method="POST">
-      <input type="text" value="<%= pi.name %>" name="name">
-      Virar campeão:
-      <!-- TODO: queria esse texto em cima do checkbox-->
-      <input type="checkbox" value="true" name="champion">
-      Mudar divisão:
-      <!-- TODO: queria esse texto em cima do checkbox-->
-      <input type="checkbox" value="true" name="main">
-      <br />
-      <button><a href="/api/listAll">List All</a></button>
-      <button type="submit">Edit</button>
-    </form>
+    <h1>Edit</h1>
+      <div class="ranks">
+        <div class="grid-content">
+          <div class="image-wrestler"><img src="/images/<%= pi.name %>.png" /></div>
+          <figcaption>
+            <div class="grid-caption">
+              <h4 class="grid-caption-text">
+                <%= pi.name %>
+              </h4>
+            </div>
+          </figcaption>
+        </div>
+      </div>
+      <div class="edit-form">
+        <form action="/api/update/<%= pi._id %>" method="POST">
+          <div class="name-form">Name: <input type="text" value="<%= pi.name %>" name="name"></div>
+          <div class="name-form">Turn champion:
+            <div class="checkbox-form"><input type="checkbox" value="true" name="champion"></div>
+          </div>
+          <div class="name-form">Main division:
+            <div class="checkbox-form"><input type="checkbox" value="true" name="main"></div>
+          </div>
+          <button type="submit">Edit</button>
+        </form>
+      </div>
   </div>
 </body>
 

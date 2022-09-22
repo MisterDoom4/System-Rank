@@ -1,0 +1,36 @@
+.edit-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid rgb(0, 0, 0);
+    width: 275px;
+    margin-left: 43%;
+}
+.edit-form button{
+    width: 275px;
+    background: rgb(255, 255, 255);
+}
+.grid-content{
+    width: 267px;
+}
+.name-form {
+    margin-left: 4%;
+    margin-top: 2px;
+}
+input[type=text]:focus {
+    border: 3px solid #555;
+}
+.checkbox-form{
+    margin-left: 50px;
+}
+.image-wrestler{
+    display: flex;
+}
+.ranks{
+    max-width: 275px;
+    display: block;
+    margin-top: 0;
+    margin-left: 43%;
+    background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(0, 0, 0) 100%);
+}
