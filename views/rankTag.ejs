@@ -3,46 +3,58 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/ranks.css">
   <title>Rank</title>
 </head>
 
 <body>
   <div class="content">
-    <h2>Rank<h2>
-        <div>
-          <button><a href="/api/showRankTag?genre=M">Masculino</a></button>
-          <!-- TODO: queria o botão na esquerda da tabela -->
-          <button><a href="/api/showRankTag?genre=F">Feminino</a></button>
-        </div>
-        <table border="1">
+    <h1>Ranks</h1>
+    <div id="divisions">
+    </div>
+    <div id="informations">
+      <h2>Contenders</h2>
+      Total:<%=pis.length %>
+    </div>
+    <div id="contenders" class="tagRank">
+      <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
           <thead>
             <tr>
-              <td>Name</td>
-              <td>Points</td>
-              <td>Champion</td>
+              <th></th>
+              <th>Name</th>
+              <th>Points</th>
             </tr>
           </thead>
+        </table>
+      </div>
+      <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
           <tbody>
             <% pis.forEach(function(data) { %>
               <tr>
-                <td><a href="/api/showTag?name=<%= data.name %>">
-                    <%= data.name %>
-                  </a></td>
                 <td>
-                  <%= data.points %>
+                  <div class="champion-tag"><img src="/images/<%= data.name %>.png" /></div>
                 </td>
                 <td>
-                  <% if(data.champion){%> 🏆 <% } else{%>
-                      <%}%>
+                  <a href="/api/show?name=<%= data.name %>">
+                    <%= data.name %>
+                  </a>
+                </td>
+                <td>
+                  <h4>
+                    <%= data.points %>
+                  </h4>
                 </td>
               </tr>
               <% }) %>
           </tbody>
-          <%=pis.length %>
-            <!-- TODO: colocar do lado da tabela -->
-            <button><a href="/">Back</a></button>
-            <button><a href="/matchTag">Match</a></button>
+        </table>
+      </div>
+    </div>
   </div>
+  <script type="text/javascript" src="/scripts/champion.js"></script>
+  <script>championTag();</script>
 </body>
 
 </html>

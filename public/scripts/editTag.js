@@ -7,7 +7,7 @@ function createComboBox(){
     getParticipant(0,defaultOption);
     dropdown.add(defaultOption);
     dropdown.selectedIndex = 0;
-    const url = '/api/list';
+    const url = '/api/getAll';
     const request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.onload = function() {
@@ -55,7 +55,7 @@ function createComboBox2(){
     getParticipant(1,defaultOption2);
     dropdown2.add(defaultOption2);
     dropdown2.selectedIndex = 0;
-    const url2 = '/api/list';
+    const url2 = '/api/getAll';
     const request2 = new XMLHttpRequest();
     request2.open('GET', url2, true);
     request2.onload = function() {

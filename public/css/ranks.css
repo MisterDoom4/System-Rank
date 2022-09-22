@@ -9,6 +9,7 @@
 table {
     width: 50%;
     border: 4px solid black;
+    border-radius: 5%;
 }
 th{
     font-size: 18px;
@@ -44,6 +45,9 @@ td a:hover{
 #contenders {
     margin-top: 15px;
 }
+.tagRank table{
+    width: 56%;
+}
 h4{
     color: black;
     font-weight: bold;
@@ -54,6 +58,9 @@ h4{
     text-align: center;
 }
 h2{
-    
     margin-top: 1%;
+}
+.champion-tag{
+    min-width: 322px;
+    padding-right: 2px;
 }

@@ -107,7 +107,7 @@ exports.add = function (req, res, next) {
   let nm = req.body.name;
   PI.find({ name: nm }).then(function (pi) {
     if (pi.length > 0) {
-      res.render('createWrestle', { erro: "ja cadastrado" });
+      res.render('createWrestler', { erro: "ja cadastrado" });
     }
     else {
       PI.create(req.body).then(function (pi) {
