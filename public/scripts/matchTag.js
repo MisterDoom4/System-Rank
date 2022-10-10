@@ -1,9 +1,9 @@
 let winner = document.getElementById('locality-dropdown');
-let loser = document.getElementById('locality-dropdown2');
+let loser = document.getElementById('tag-dropdown2');
 function createWinner(){
     winner.length = 0;
     let defaultOption = document.createElement('option');
-    defaultOption.text = 'Vencedor';
+    defaultOption.text = 'Winner';
     winner.add(defaultOption);
     winner.selectedIndex = 0;
     const url = '/api/getAllTag';
@@ -30,7 +30,7 @@ function createWinner(){
 function createLoser(){
     loser.length = 0;
     let defaultOption2 = document.createElement('option');
-    defaultOption2.text = 'Perdedor';
+    defaultOption2.text = 'Loser';
     loser.add(defaultOption2);
     loser.selectedIndex = 0;
     const url2 = '/api/getAllTag';

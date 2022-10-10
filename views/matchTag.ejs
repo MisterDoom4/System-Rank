@@ -3,25 +3,32 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/match.css">
   <title>Match</title>
 </head>
 
 <body>
   <div class="content">
-    <h2>Match</h2>
-    <form action="/api/matchTag" method="POST" id="match">
-      <button type="submit">Submit</button>
-    </form>
-    <select id="locality-dropdown" name="winner" form="match">
-    </select>
-    <select id="locality-dropdown2" name="loser" form="match">
-    </select>
-    Title Match:
-    <input type="checkbox" value="true" name="champion" form="match">
-    Evento Especial:
-    <input type="checkbox" value="true" name="event" form="match">
-    <button><a href="/">Back</a></button>
-    <a href="/api/showRank?main=true&genre=M" class="btn btn-primary btn-block mb-2">Ranks</a>
+    <h1>Match</h1>
+    <div class="match-card">
+      <select id="locality-dropdown" name="winner" form="match">
+      </select>
+      <select id="tag-dropdown2" name="loser" form="match">
+      </select>
+      <div class="checkbox-match">
+        Title Match:
+        <input type="checkbox" value="true" name="champion" form="match">
+        <div class="checkbox2-match">
+          PPV Match:
+          <input type="checkbox" value="true" name="event" form="match">
+        </div>
+      </div>
+      <div class="submit-match">
+        <form action="/api/matchTag" method="POST" id="match">
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
   </div>
   <script type="text/javascript" src="/scripts/matchTag.js"></script>
 </body>
