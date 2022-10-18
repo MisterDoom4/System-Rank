@@ -4,21 +4,20 @@
   <meta charset="UTF-8">
   <title>Add Tag</title>
   <link rel="stylesheet" type="text/css"
-    href="/assets/colocoAquiMeu.css">
+    href="/css/add.css">
 </head>
 <body>
   <div class="content">
-  <h2>Add Tag<h2>
+  <h1>Add Tag<h1>
   <form action="/api/addTag" method="POST" id="dupla">
     <input type="text" placeholder="name" name="name">
     <input type="text" placeholder="genre" name="genre">
-    <button type="submit">Submit</button>
+    <button type="submit">Add</button>
   </form>
   <select id="locality-dropdown" name="participant0" form="dupla">
   </select>
   <select id="locality-dropdown2" name="participant1" form="dupla">
   </select>
-  <button><a href="/api/listTAGS">Show All</a></button>
   <div id="erro"><%= erro %></div>
 </div>
 <script type="text/javascript" src="/scripts/tag.js"></script>
