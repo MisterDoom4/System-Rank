@@ -149,3 +149,28 @@ tr {
 .grid-caption-text a:hover {
     color: rgb(56, 53, 55);
 }
+@media screen and (min-width:1254px) and (max-width:1364px) {
+    .content{
+        margin-top: 15%;
+    }
+    .ranks{
+        margin-left: 5%;
+    }
+}
+@media screen and (max-width: 768px){
+    .content{
+        margin-top: 57%;
+    }
+    .ranks{
+        margin-left: 10%;
+    }
+    .ranks.tag {
+        max-width: 324px;
+    }
+    .ranks.tag .tbl-content {
+        overflow-x: hidden;
+    }
+    .ranks.tag table {
+        max-width: 324px;
+    }
+}

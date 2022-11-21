@@ -1,6 +1,6 @@
 {
   "name": "system_rank",
-  "version": "1.5",
+  "version": "1.5.1",
   "description": "",
   "main": "index.js",
   "engines": {
