@@ -1,5 +1,5 @@
 # System Rank
-Este aplicativo é uma REST API com CRUD(Create,Read,Update,Delete), Node.js e utiliza o banco de dados MongoDB. O objetivo dele é gerenciar um sistema de rank 
+Este é um site REST API com CRUD(Create,Read,Update,Delete), Node.js e utiliza o banco de dados MongoDB. O objetivo dele é gerenciar um sistema de rank 
 específico, que foi idealizado por mim. Utilizando uma Front-End para o acesso aos dados, e comandos para a utilização da API.
 
 ## O Rank
@@ -68,6 +68,11 @@ name: {
     type: Boolean,
     default: false
   },
+   genre: {
+    type: String,
+    required: [true, '*Campo obrigatório!']
+  },
+  type
   points:{
     type: Number
   },
@@ -77,3 +82,20 @@ name: {
   },}],
   ```
 Na tabela Dupla, quando é adicionada no banco de dados, ele coloca no campo de "participant" o id do indivíduo além do nome dele.
+
+Requisições são feitas pela rota "api", alguns dados podem ser pegos por esses caminhos em puro JSON:
+- /api/getAll : serve para retornar todos os indivíduos
+- /api/getAllTag : serve para retornar todas as duplas
+- /api/showTag/{name} : serve para retornar uma dupla pelo nome
+- /api/top5?main={boolean}&genre={genre} : serve para retornar o top 5 junto com o campeão, precisa escolher a divisão e o gênero
+- /api/top5Tag?genre={genre} : mesma coisa da anterior só que com a dupla, e sem precisar de divisão
+- /api/champions : retornar todos os campeões, sem ser duplas
+- /api/championsTag : mesma coisa da anterior, mas só com dupla
+
+As outras requisições não retornam JSON, mas sim páginas em .ejs, com o resultado das requisições, como por exemplo a api/listAll que retorna uma página com todos os indivíduos.
+Para testar o funcionamento,no terminal use a linha de comando :
+```
+npm start
+```
+Irá ligar um serviço node.js na porta 5000 da máquina.
+Se for testar, por favor não edite os dados que já existem, crie novos, pois os dados estão no banco de dados que são acessados pelo serviço.
