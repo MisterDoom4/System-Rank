@@ -3,25 +3,38 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/edit.css">
   <title>Edit TAG</title>
 </head>
 
 <body>
   <div class="content">
-    <h2>Edit</h2>
-    <form action="/api/updateTag/<%= pi._id %>" method="POST" id="dupla">
-      <input id="nome" type="text" value="<%= pi.name %>" name="name">
-      <select id="locality-dropdown" name="participant0" form="dupla">
-      </select>
-      <select id="locality-dropdown2" name="participant1" form="dupla">
-      </select>
-      Virar campeão:
-      <!-- TODO: queria esse texto em cima do checkbox-->
-      <input type="checkbox" value="true" name="champion">
-      <br />
-      <button><a href="/api/listTags">List All</a></button>
-      <button type="submit">Edit</button>
-    </form>
+    <h1>Edit</h1>
+    <div class="ranks tag">
+      <div class="grid-content tag">
+        <div class="image-wrestler"><img src="/images/<%= pi.name %>.png" /></div>
+        <figcaption>
+          <div class="grid-caption">
+            <h4 class="grid-caption-text">
+              <%= pi.name %>
+            </h4>
+          </div>
+        </figcaption>
+      </div>
+    </div>
+    <div class="edit-form tag">
+      <form action="/api/updateTag/<%= pi._id %>" method="POST" id="dupla">
+        <div class="name-form tag">Name: <input id = "nome" type="text" value="<%= pi.name %>" name="name"></div>
+        <div class="name-form tag">Turn champion:
+          <div class="checkbox-form"><input type="checkbox" value="true" name="champion"></div>
+        </div>
+        <select id="locality-dropdown" name="participant0" form="dupla">
+        </select>
+        <select id="locality-dropdown2" name="participant1" form="dupla">
+        </select>
+        <button type="submit">Edit</button>
+      </form>
+    </div>
   </div>
   <script type="text/javascript" src="/scripts/editTag.js"></script>
 </body>

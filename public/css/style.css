@@ -163,6 +163,7 @@ tr {
     }
     .ranks{
         margin-left: 10%;
+        max-width: 324px;
     }
     .ranks.tag {
         max-width: 324px;
@@ -171,6 +172,10 @@ tr {
         overflow-x: hidden;
     }
     .ranks.tag table {
-        max-width: 324px;
+        max-width: 330px;
+    }
+    .tag img{
+        margin-left: 0%;
+        margin-right: 2px;
     }
 }

@@ -125,7 +125,7 @@ function championTag() {
             }
         } else {
         }
-        document.getElementById("divisions").innerHTML = tab;
+        document.getElementById("divisions-tag").innerHTML = tab;
     }
     request.onerror = function () {
         console.error('An error occurred fetching the JSON from ' + url);

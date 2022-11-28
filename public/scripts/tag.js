@@ -3,7 +3,7 @@ let dropdown2 = document.getElementById('locality-dropdown2');
 function createComboBox(){
     dropdown.length = 0;
     let defaultOption = document.createElement('option');
-    defaultOption.text = 'Participante';
+    defaultOption.text = 'Participant';
     dropdown.add(defaultOption);
     dropdown.selectedIndex = 0;
     const url = '/api/getAll';
@@ -30,7 +30,7 @@ function createComboBox(){
 function createComboBox2(){
     dropdown2.length = 0;
     let defaultOption2 = document.createElement('option');
-    defaultOption2.text = 'Participante';
+    defaultOption2.text = 'Participant';
     dropdown2.add(defaultOption2);
     dropdown2.selectedIndex = 0;
     const url2 = '/api/getAll';

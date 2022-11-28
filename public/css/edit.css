@@ -1,4 +1,4 @@
-.edit-form{
+.edit-form {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -7,30 +7,64 @@
     width: 275px;
     margin-left: 43%;
 }
-.edit-form button{
+.edit-form.tag{
+    width: 330px;
+}
+.edit-form button {
     width: 275px;
     background: rgb(255, 255, 255);
 }
-.grid-content{
+.edit-form.tag button{
+    width: 330px;
+}
+
+.grid-content {
     width: 267px;
 }
+
+.grid-content.tag {
+    width: 100%;
+}
+
 .name-form {
     margin-left: 4%;
     margin-top: 2px;
 }
+.name-form.tag{
+    margin-left: 10%;
+    margin-top: 5px;
+}
+
 input[type=text]:focus {
     border: 3px solid #555;
 }
-.checkbox-form{
+
+.checkbox-form {
     margin-left: 50px;
 }
-.image-wrestler{
+
+.image-wrestler {
     display: flex;
 }
-.ranks{
+
+.ranks {
     max-width: 275px;
     display: block;
     margin-top: 0;
     margin-left: 43%;
     background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(0, 0, 0) 100%);
+}
+
+.ranks.tag {
+    max-width: 330px;
+}
+
+.tag img {
+    margin-left: 0%;
+}
+#locality-dropdown{
+    margin-left: 82px;
+}
+#locality-dropdown2{
+    margin-left: 82px;
 }

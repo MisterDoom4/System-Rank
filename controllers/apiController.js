@@ -19,13 +19,13 @@ exports.listAll = function (req, res, next) {
 
 // listar todas as tags
 exports.listAllTag = function (req, res, next) {
-  TAG.find({}).then(function (pi) {
+  TAG.find({}).sort({name: 1}).then(function (pi) {
     res.render('tags', { pis: pi });
   }).catch(next);
 };
 
 // listar por nome
-exports.search = function(req,res,next){
+exports.search = function (req, res, next) {
   let nm = req.query.name;
   PI.find({ name: { $regex: nm } }).sort({ name: 1 }).then(function (pi) {
     res.render('wrestlers', { pis: pi });
@@ -33,7 +33,7 @@ exports.search = function(req,res,next){
 }
 
 // listar por nome tag
-exports.searchTag = function(req,res,next){
+exports.searchTag = function (req, res, next) {
   let nm = req.query.name;
   TAG.find({ name: { $regex: nm } }).sort({ name: 1 }).then(function (pi) {
     res.render('tags', { pis: pi });
@@ -78,7 +78,7 @@ exports.showTagByName = function (req, res, next) {
 
 //listar pela divisão e genero
 exports.showRank = function (req, res, next) {
-  PI.find({ champion:false, main: req.query.main, genre: req.query.genre }).sort({ champion: -1, points: -1 }).then(function (pi) {
+  PI.find({ champion: false, main: req.query.main, genre: req.query.genre }).sort({ champion: -1, points: -1 }).then(function (pi) {
     res.render('rank', { pis: pi });
   }).catch(next);
 };
@@ -623,7 +623,7 @@ exports.match = function (req, res, next) {
 };
 
 // criar match tag
-exports.matchTag = function(req,res,next){
+exports.matchTag = function (req, res, next) {
   let win;
   let los;
   TAG.findOne({ name: req.body.winner }).then(function (pi) {
@@ -636,7 +636,7 @@ exports.matchTag = function(req,res,next){
         })
       }
       else {
-        // if (win.genre == los.genre) {
+        if (win.genre == los.genre) {
           if (req.body.champion) {
             if (win.champion) {
               TAG.findByIdAndUpdate(los._id, { points: 0 }).then(function (pi) {
@@ -659,36 +659,33 @@ exports.matchTag = function(req,res,next){
               })
             }
             else {
-                if (win.points == los.points) {
-                  los.points--;
-                  win.points += 2;
-                  TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
-                    TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                    })
+              if (win.points == los.points) {
+                los.points--;
+                win.points += 2;
+                TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                  TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
                   })
-                }
-                else if (win.points > los.points) {
-                  los.points--;
-                  win.points++;
-                  TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
-                    TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                    })
+                })
+              }
+              else if (win.points > los.points) {
+                los.points--;
+                win.points++;
+                TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                  TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
                   })
-                }
-                else {
-                  los.points -= 2;
-                  win.points += 3;
-                  TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
-                    TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
-                    })
+                })
+              }
+              else {
+                los.points -= 2;
+                win.points += 3;
+                TAG.findByIdAndUpdate(los._id, { points: los.points }).then(function (pi) {
+                  TAG.findByIdAndUpdate(win._id, { points: win.points }).then(function () {
                   })
-                }
+                })
+              }
             }
           }
-        // }
-        // else {
-        //   res.redirect('/match');
-        // }
+        }
       }
     })
   }).catch(next);
@@ -696,36 +693,36 @@ exports.matchTag = function(req,res,next){
 }
 
 // listar top 5 junto com o campeao sem formatar
-exports.top5 = function(req,res,next){
+exports.top5 = function (req, res, next) {
   PI.find({ main: req.query.main, genre: req.query.genre }).sort({ champion: -1, points: -1 }).limit(6).then(function (pi) {
     res.send(pi);
   }).catch(next);
 };
 
 // listar top 5 de Tag junto com o campeao sem formatar
-exports.top5Tag = function(req,res,next){
+exports.top5Tag = function (req, res, next) {
   TAG.find({ genre: req.query.genre }).sort({ champion: -1, points: -1 }).limit(6).then(function (pi) {
     res.send(pi);
   }).catch(next);
 };
 
 // listar os campeoes sem formatar
-exports.champion = function(req,res,next){
-  PI.find({champion : true}).sort({genre: -1, main:-1}).then(function(pi){
+exports.champion = function (req, res, next) {
+  PI.find({ champion: true }).sort({ genre: -1, main: -1 }).then(function (pi) {
     res.send(pi);
   }).catch(next);
 }
 
 // listar os campeoes tag sem formatar
-exports.championTag = function(req,res,next){
-  TAG.find({champion : true}).sort({genre:-1}).then(function(pi){
+exports.championTag = function (req, res, next) {
+  TAG.find({ champion: true }).sort({ genre: -1 }).then(function (pi) {
     res.send(pi);
   }).catch(next);
 }
 
 exports.reset = function (req, res, next) {
   PI.updateMany({}, { points: 0 }).then(function (pi) {
-    TAG.updateMany({}, { points: 0 }).then(function(pi){
+    TAG.updateMany({}, { points: 0 }).then(function (pi) {
       res.send("reset bem sucedido");
     })
   }).catch(next);
