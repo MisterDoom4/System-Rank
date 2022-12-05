@@ -3,6 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
+const passport = require('passport');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 
 // configuração do db
@@ -13,6 +16,8 @@ mongoose.connect(db,{useNewUrlParser: true})
 
 // inicializar app express
 const app = express();
+
+require('./config/passport')(passport);
 
 // define '/views/layout' como main-layout! (é renderizada na raiz)
 app.use(expressLayouts);
@@ -31,16 +36,34 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const routes = require('./routes/api');
+app.use(
+    session({
+      secret: 'secret',
+      resave: true,
+      saveUninitialized: true
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+// Global variables middleware
+app.use(function(req, res, next) {
+   // ‘res.locals’->é a forma de criar variáveis ou funções globais
+   res.locals.success_msg = req.flash('success_msg');
+   res.locals.error_msg = req.flash('error_msg');
+   // passport tem as suas próprias flash-msgs
+   // que passa em ‘flash(‘error’)’, assim faço overwrite
+   res.locals.error = req.flash('error');
+   next();
+ });
+
+const api = require('./routes/api');
+const users = require('./routes/users');
 const index = require('./routes/index');
 app.use('/', index);
-app.use('/api', routes);
-  
-app.use(function(err, req, res, next){
-    console.log(err);
-   res.status(422).send({error: err.message});
-});
-
+app.use('/api', api);
+app.use('/users',users);
  //FIM MIDDLEWARE
  
 let port = 5000;

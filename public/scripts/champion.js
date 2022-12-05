@@ -10,13 +10,13 @@ function champion() {
                 if(data[i].genre =="M"){
                     if(data[i].main){
                         tab += `<div class="ranks">
-                                    <a href="/api/showRank?main=true&genre=M"> 
+                                    <a href="/showRank?main=true&genre=M"> 
                                         <div class="title_name">AEW World Championship</div>
                                         <div class="grid-content">
                                             <div class="champion"> <img src="/images/${data[i].name}.png"> </div>
                                             <figcaption>
                                                 <div class="grid-caption">
-                                                    <h4 class="grid-caption-text"><a href="/api/show?name=${data[i].name}">${data[i].name}</a></h4>
+                                                    <h4 class="grid-caption-text"><a href="/show?name=${data[i].name}">${data[i].name}</a></h4>
                                                 </div>
                                             </figcaption>
                                         </div>
@@ -25,13 +25,13 @@ function champion() {
                     }
                     else{
                         tab += `<div class="ranks">
-                                    <a href="/api/showRank?main=false&genre=M"> 
+                                    <a href="/showRank?main=false&genre=M"> 
                                         <div class="title_name">TNT Championship</div>
                                         <div class="grid-content">
                                             <div class="champion"> <img src="/images/${data[i].name}.png"> </div>
                                             <figcaption>
                                                 <div class="grid-caption">
-                                                    <h4 class="grid-caption-text"><a href="/api/show?name=${data[i].name}">${data[i].name}</a></h4>
+                                                    <h4 class="grid-caption-text"><a href="/show?name=${data[i].name}">${data[i].name}</a></h4>
                                                 </div>
                                             </figcaption>
                                         </div>
@@ -42,13 +42,13 @@ function champion() {
                 else{
                     if(data[i].main){
                         tab += `<div class="ranks">
-                                    <a href="/api/showRank?main=true&genre=F"> 
+                                    <a href="/showRank?main=true&genre=F"> 
                                         <div class="title_name">Women's World Championship</div>
                                         <div class="grid-content">
                                             <div class="champion"> <img src="/images/${data[i].name}.png"> </div>
                                             <figcaption>
                                                 <div class="grid-caption">
-                                                    <h4 class="grid-caption-text"><a href="/api/show?name=${data[i].name}">${data[i].name}</a></h4>
+                                                    <h4 class="grid-caption-text"><a href="/show?name=${data[i].name}">${data[i].name}</a></h4>
                                                 </div>
                                             </figcaption>
                                         </div>
@@ -57,13 +57,13 @@ function champion() {
                     }
                     else{
                         tab += `<div class="ranks">
-                                    <a href="/api/showRank?main=false&genre=F"> 
+                                    <a href="/showRank?main=false&genre=F"> 
                                         <div class="title_name">TBS Championship</div>
                                         <div class="grid-content">
                                             <div class="champion"> <img src="/images/${data[i].name}.png"> </div>
                                             <figcaption>
                                                 <div class="grid-caption">
-                                                    <h4 class="grid-caption-text"><a href="/api/show?name=${data[i].name}">${data[i].name}</a></h4>
+                                                    <h4 class="grid-caption-text"><a href="/show?name=${data[i].name}">${data[i].name}</a></h4>
                                                 </div>
                                             </figcaption>
                                         </div>
@@ -94,13 +94,13 @@ function championTag() {
             for (let i = 0; i < data.length; i++) {
                 if(data[i].genre =="M"){
                         tab += `<div class="ranks">
-                                    <a href="/api/showRankTag?genre=M"> 
+                                    <a href="/showRankTag?genre=M"> 
                                         <div class="title_name">World Tag Team Championship</div>
                                         <div class="grid-content">
                                             <div class="champion"> <img src="/images/${data[i].name}.png"> </div>
                                             <figcaption>
                                                 <div class="grid-caption">
-                                                    <h4 class="grid-caption-text"><a href="/api/showTag?name=${data[i].name}">${data[i].name}</a></h4>
+                                                    <h4 class="grid-caption-text"><a href="/showTag?name=${data[i].name}">${data[i].name}</a></h4>
                                                 </div>
                                             </figcaption>
                                         </div>
@@ -109,13 +109,13 @@ function championTag() {
                 }
                 else{
                         tab += `<div class="ranks">
-                                    <a href="/api/showRankTag?genre=F"> 
+                                    <a href="/showRankTag?genre=F"> 
                                         <div class="title_name">Women's Tag Team Championship</div>
                                         <div class="grid-content">
                                             <div class="champion"> <img src="/images/${data[i].name}.png"> </div>
                                             <figcaption>
                                                 <div class="grid-caption">
-                                                    <h4 class="grid-caption-text"><a href="/api/showTag?name=${data[i].name}">${data[i].name}</a></h4>
+                                                    <h4 class="grid-caption-text"><a href="/showTag?name=${data[i].name}">${data[i].name}</a></h4>
                                                 </div>
                                             </figcaption>
                                         </div>
@@ -133,8 +133,3 @@ function championTag() {
 
     request.send();
 }
-{/* <button><a href="/api/showRank?main=true&genre=M">Principal Masculino</a></button>
-          <!-- TODO: queria o botão na esquerda da tabela -->
-          <button><a href="/api/showRank?main=false&genre=M">Secundário Masculino</a></button>
-          <button><a href="/api/showRank?main=true&genre=F">Principal Feminino</a></button>
-          <button><a href="/api/showRank?main=false&genre=F">Secundário Feminino</a></button> */}

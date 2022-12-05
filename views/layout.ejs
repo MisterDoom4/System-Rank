@@ -26,8 +26,8 @@
           Roster
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/api/listAll">Wrestlers</a></li>
-          <li><a class="dropdown-item" href="/api/listAllTags">Tag Team</a></li>
+          <li><a class="dropdown-item" href="/listAll">Wrestlers</a></li>
+          <li><a class="dropdown-item" href="/listAllTags">Tag Team</a></li>
         </ul>
       </li>
       <li class="nav-item dropdown">
@@ -35,24 +35,24 @@
           Ranks
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/api/showRank?main=true&genre=M">Wrestler</a></li>
-          <li><a class="dropdown-item" href="/api/showRankTag?genre=M">Tag</a></li>
+          <li><a class="dropdown-item" href="/showRank?main=true&genre=M">Wrestler</a></li>
+          <li><a class="dropdown-item" href="/showRankTag?genre=M">Tag</a></li>
         </ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/home">Home</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
           Match
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/match">Wrestler</a></li>
-          <li><a class="dropdown-item" href="/matchTag">Tag</a></li>
+          <li><a class="dropdown-item" href="/pagmatch">Wrestler</a></li>
+          <li><a class="dropdown-item" href="/pagmatchTag">Tag</a></li>
         </ul>
       </li>
       <li class="nav-item">
-        <form action="/api/reset" method="POST">
+        <form action="/reset" method="POST">
           <button class ="btn btn-outline-success my-2 my-sm-0" id="reset" type="submit">Reset</button>
         </form>
       </li>

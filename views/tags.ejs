@@ -14,17 +14,17 @@
     <h1>Tags</h1>
     <div class="search">
       <div class="add-button">
-        <a href="/api/createPagTag">Add</a>
+        <a href="/createPagTag">Add</a>
       </div>
-      <form autocomplete="off" action="/api/listTag?" method="GET">
+      <form autocomplete="off" action="/listTag?" method="GET">
         <div class="autocomplete" style="width:300px;">
           <input id="search-field" type="text" name="name" placeholder="Search">
         </div>
         <button id="search-button" type="submit">Search</button>
       </form>
-      <div class="genre"><a href="/api/listAllTags">All</a></div>
-      <div class="genre"><a href="/api/listTagGenre/M">Mens</a></div>
-      <div class="genre"><a href="/api/listTagGenre/F">Womens</a></div>
+      <div class="genre"><a href="/listAllTags">All</a></div>
+      <div class="genre"><a href="/listTagGenre/M">Mens</a></div>
+      <div class="genre"><a href="/listTagGenre/F">Womens</a></div>
     </div>
     <div id="tags">
       <% pis.forEach(function(data) { %>
@@ -37,14 +37,14 @@
                 <%}%>
                   <figcaption>
                     <div class="grid-caption">
-                      <h4 class="grid-caption-text"><a href="/api/showTag?name=<%= data.name %>">
+                      <h4 class="grid-caption-text"><a href="/showTag?name=<%= data.name %>">
                           <%= data.name %>
                         </a></h4>
                     </div>
                   </figcaption>
           </div>
-          <div class="links-edit-delete"><a href="/api/editTag/<%= data._id %>">Edit</a></div>
-          <div class="links-edit-delete"><a onclick="confirmation('Delete record?!','/api/delete/<%= data._id %>')"
+          <div class="links-edit-delete"><a href="/editTag/<%= data._id %>">Edit</a></div>
+          <div class="links-edit-delete"><a onclick="confirmation('Delete record?!','/deleteTag/<%= data._id %>')"
               href=#>Delete</a></div>
         </div>
         <% }) %>
