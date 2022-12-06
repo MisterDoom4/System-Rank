@@ -2,12 +2,12 @@ const { PI, TAG } = require('../models/PImodel');
 
 // pagina do login
 exports.index = function (req, res) {
-    res.render('login');
+    res.render('home');
   };
 
 //pagina inicial
-exports.home = function(req,res){
-    res.render('home');
+exports.login = function(req,res){
+    res.render('login');
 }
 
 // entar na pagina match

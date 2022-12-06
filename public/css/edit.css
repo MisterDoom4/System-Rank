@@ -34,6 +34,10 @@
     margin-left: 10%;
     margin-top: 5px;
 }
+.name-form input{
+    border: 1px solid #000000;
+    border-radius: .375rem;
+}
 
 input[type=text]:focus {
     border: 3px solid #555;

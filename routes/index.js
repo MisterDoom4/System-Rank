@@ -9,7 +9,7 @@ const { ensureAuthenticated } = require('../config/auth');
 router.get("/", indexController.index);
 
 //pagina inicial
-router.get('/home',indexController.home);
+router.get('/login',indexController.login);
 
 // entrar na pagina da match
 router.get("/pagmatch",ensureAuthenticated,indexController.pagmatch);
