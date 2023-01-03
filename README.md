@@ -98,4 +98,4 @@ Para testar o funcionamento,no terminal use a linha de comando :
 npm start
 ```
 Irá ligar um serviço node.js na porta 5000 da máquina.
-Se for testar, por favor não edite os dados que já existem, crie novos, pois os dados estão no banco de dados que são acessados pelo serviço.
+Se for testar, é necessário colocar a conexão do seu banco de dados, que está na pasta "config/database"
