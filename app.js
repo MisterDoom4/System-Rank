@@ -7,6 +7,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 
+require('dotenv').config();
 
 // configuração do db
 const db = require('./config/database').mongoURI;

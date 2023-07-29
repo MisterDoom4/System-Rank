@@ -1,5 +1,7 @@
 // variavel de acesso ao banco de dados
-dbAcess = 'mongodb+srv://<dbuser>:'+ encodeURIComponent('<dbpassword>')+'@cluster0.2wi3voi.mongodb.net/<dbname>?retryWrites=true&w=majority';
+
+const dbAcess = process.env.MONGO_USER + encodeURIComponent(process.env.MONGO_PASS) + process.env.MONGO_DB;
+
 module.exports = {
     mongoURI: dbAcess
 };
