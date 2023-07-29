@@ -11,6 +11,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
+  "pkg" :{
+    "assests": [
+      "views/**/*",
+      "public/**/*",
+      "controllers/**/*",
+      "models/**/*",
+      "routes/**/*"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
