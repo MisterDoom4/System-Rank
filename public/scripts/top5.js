@@ -189,7 +189,7 @@ function createtop5Tag() {
       for (let i = 0; i < data.length; i++) {
         if (data[i].champion) {
           tab += `<div class="grid-content">
-            <div class="champion"><img src="/images/${data[i].name}.png" /></div>
+            <div class="champion"><img src="/images/tags/${data[i].name}.png" /></div>
             <figcaption>
               <div class="grid-caption">
                 <h4 class="grid-caption-text"><a href="/api/showTag?name=${data[i].name}">${data[i].name}</a></h4>
@@ -234,7 +234,7 @@ function createtop5FemaleTag() {
       for (let i = 0; i < data.length; i++) {
         if (data[i].champion) {
           tab += `<div class="grid-content">
-            <div class="champion"><img src="/images/${data[i].name}.png" /></div>
+            <div class="champion"><img src="/images/tags/${data[i].name}.png" /></div>
             <figcaption>
               <div class="grid-caption">
                 <h4 class="grid-caption-text"><a href="/api/showTag?name=${data[i].name}">${data[i].name}</a></h4>
