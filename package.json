@@ -18,7 +18,8 @@
       "controllers/**/*",
       "models/**/*",
       "routes/**/*"
-    ]
+    ],
+    "output": "dist"
   },
   "keywords": [],
   "author": "",

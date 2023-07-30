@@ -8,6 +8,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 
 require('dotenv').config();
+console.log(process.env.MONGO_USER);
 
 // configuração do db
 const db = require('./config/database').mongoURI;
