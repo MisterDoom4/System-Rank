@@ -13,6 +13,9 @@
   <div class="content">
     <h1>Wrestlers</h1>
     <div class="search">
+      <div id="total">
+        Total:<%=pis.length %>
+      </div>
       <div class="add-button">
         <a href="/createPagWrestler">Add</a>
       </div>
@@ -25,6 +28,7 @@
       <div class="genre"><a href="/listAll">All</a></div>
       <div class="genre"><a href="/listGenre/M">Mens</a></div>
       <div class="genre"><a href="/listGenre/F">Womens</a></div>
+      <div class="genre"><a href="/listAllROH">ROH</a></div>
     </div>
     <div id="wrestlers">
       <% pis.forEach(function(data) { %>

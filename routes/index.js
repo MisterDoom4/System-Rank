@@ -26,6 +26,9 @@ router.get('/createPagTag',ensureAuthenticated, indexController.createPagTag);
 // listar todas as pessoas
 router.get('/listAll',indexController.listAll);
 
+// listar todas as pessoas
+router.get('/listAllROH',indexController.listAllROH);
+
 // listar todas as tags
 router.get('/listAllTags',indexController.listAllTag);
 

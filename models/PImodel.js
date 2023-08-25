@@ -21,6 +21,10 @@ const PISchema = new Schema({
   points:{
     type: Number,
     default: 0
+  },
+  company:{
+    type: String,
+    required: [true, '*Campo obrigatório!']
   }
 });
 const tgSchema = new Schema({

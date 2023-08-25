@@ -23,3 +23,8 @@
 #tag-dropdown2{
     margin-left: 27%;
 }
+@media screen and (min-width:1254px) and (max-width:1600px) {
+    .match-card{
+        margin-left: 12%;
+    }
+}

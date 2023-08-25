@@ -97,7 +97,7 @@ function championTag() {
                                     <a href="/showRankTag?genre=M"> 
                                         <div class="title_name">World Tag Team Championship</div>
                                         <div class="grid-content">
-                                            <div class="champion"> <img src="/images/${data[i].name}.png"> </div>
+                                            <div class="champion"> <img src="/images/tags/${data[i].name}.png"> </div>
                                             <figcaption>
                                                 <div class="grid-caption">
                                                     <h4 class="grid-caption-text"><a href="/showTag?name=${data[i].name}">${data[i].name}</a></h4>
@@ -112,7 +112,7 @@ function championTag() {
                                     <a href="/showRankTag?genre=F"> 
                                         <div class="title_name">Women's Tag Team Championship</div>
                                         <div class="grid-content">
-                                            <div class="champion"> <img src="/images/${data[i].name}.png"> </div>
+                                            <div class="champion"> <img src="/images/tags/${data[i].name}.png"> </div>
                                             <figcaption>
                                                 <div class="grid-caption">
                                                     <h4 class="grid-caption-text"><a href="/showTag?name=${data[i].name}">${data[i].name}</a></h4>

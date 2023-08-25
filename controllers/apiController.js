@@ -9,7 +9,7 @@ exports.showTagByName = function (req, res, next) {
 
 // listar todas as pessoas mas sem formatação
 exports.list = function (req, res, next) {
-  PI.find({}).sort({ name: 1 }).then(function (pi) {
+  PI.find({company: "AEW"}).sort({ name: 1 }).then(function (pi) {
     res.send(pi);
   }).catch(next);
 };
@@ -23,7 +23,7 @@ exports.listTag = function (req, res, next) {
 
 // listar top 5 junto com o campeao sem formatar
 exports.top5 = function (req, res, next) {
-  PI.find({ main: req.query.main, genre: req.query.genre }).sort({ champion: -1, points: -1 }).limit(6).then(function (pi) {
+  PI.find({ main: req.query.main, genre: req.query.genre, company: "AEW" }).sort({ champion: -1, points: -1 }).limit(6).then(function (pi) {
     res.send(pi);
   }).catch(next);
 };

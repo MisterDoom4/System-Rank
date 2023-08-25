@@ -30,9 +30,15 @@ exports.createPagTag = function (req, res, next) {
   res.render('createTag', { erro: "" });
 };
 
-// listar todas as pessoas
+// listar todas as pessoas da AEW
 exports.listAll = function (req, res, next) {
-  PI.find({}).sort({ name: 1 }).then(function (pi) {
+  PI.find({company: "AEW"}).sort({ name: 1 }).then(function (pi) {
+    res.render('wrestlers', { pis: pi });
+  }).catch(next);
+};
+// listar todas as pessoas da ROH
+exports.listAllROH = function (req, res, next) {
+  PI.find({company: "ROH"}).sort({ name: 1 }).then(function (pi) {
     res.render('wrestlers', { pis: pi });
   }).catch(next);
 };
@@ -62,7 +68,7 @@ exports.searchTag = function (req, res, next) {
 
 // filtrar por genero
 exports.listGenre = function (req, res, next) {
-  PI.find({ genre: req.params.genre }).sort({ name: 1 }).then(function (pi) {
+  PI.find({ genre: req.params.genre , company: "AEW"}).sort({ name: 1 }).then(function (pi) {
     res.render('wrestlers', { pis: pi });
   }).catch(next);
 };
